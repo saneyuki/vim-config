@@ -182,7 +182,7 @@ set virtualedit=block
 " ステータスラインを常に表示
 set laststatus=2
 
-"set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l,%c%V%8P
+set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l,%c%V%8P
 
 
 "---------------------------------------------------------------------------
