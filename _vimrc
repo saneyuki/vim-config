@@ -16,6 +16,8 @@ set nocompatible
 " 背景色の傾向(カラースキームがそれに併せて色の明暗を変えてくれる)
 "set background=light
 
+" Enable mouse support.
+set mouse=a
 
 "---------------------------------------------------------------------------
 " File
