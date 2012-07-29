@@ -65,7 +65,7 @@ set softtabstop=0
 set shiftwidth=4
 
 " 入力したTab文字を半角スペースとして入力する
-"set expandtab
+set expandtab
 
 " 自動でインデント
 set autoindent
