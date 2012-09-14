@@ -56,13 +56,13 @@ set modeline
 "
 
 " Tab文字を画面上で展開する文字数
-set tabstop=4
+set tabstop=2
 
 " Tabキー入力時に挿入される空白の量，0の場合はtabstopと同じ
 set softtabstop=0
 
 " 自動インデントに使われる空白の幅
-set shiftwidth=4
+set shiftwidth=2
 
 " 入力したTab文字を半角スペースとして入力する
 set expandtab
