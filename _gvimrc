@@ -2,6 +2,12 @@
 " .gvimrc
 "---------------------------------------------------------------------------
 
+" カラースキームの設定
+"colorscheme morning
+
+" 背景色の傾向(カラースキームがそれに併せて色の明暗を変えてくれる)
+"set background=light
+
 if has("mac")
 "  opacity
 "  set transparency=30
