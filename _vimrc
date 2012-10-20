@@ -260,7 +260,15 @@ if has('vim_starting')
 endif
 
 NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
+NeoBundle 'git://github.com/mattn/zencoding-vim.git'
 
 filetype plugin on
 filetype indent on
 
+
+"----------------
+" zencoding.vim
+"
+
+" インデントの調節
+let g:user_zen_settings = { 'indentation':'  ' }
