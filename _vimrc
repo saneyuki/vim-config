@@ -36,7 +36,7 @@ set noswapfile
 set nobackup
 
 " 保存時に行末の空白を除去する
-autocmd BufWritePre * :%s/\s\+$//ge
+"autocmd BufWritePre * :%s/\s\+$//ge
 
 " シンタックスカラーリングオン
 syntax enable
