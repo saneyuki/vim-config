@@ -261,6 +261,7 @@ endif
 
 NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
 NeoBundle 'git://github.com/mattn/zencoding-vim.git'
+NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 
 filetype plugin on
 filetype indent on
@@ -272,3 +273,20 @@ filetype indent on
 
 " インデントの調節
 let g:user_zen_settings = { 'indentation':'  ' }
+
+
+"----------------
+" neocomplcache
+"
+
+" neocomplcache を起動時に有効化する
+let g:neocomplcache_enable_at_startup = 1
+
+" smartcase 機能を有効化する
+let g:neocomplcache_enable_smart_case = 1
+
+" syntax キャッシュの最小文字数を変更する (デフォルト4)
+"let g:neocomplcache_min_syntax_length = 3
+
+" _区切りの後でも補完を開始する
+"let g:neocomplcache_enable_underbar_completion = 1
