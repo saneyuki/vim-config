@@ -26,4 +26,4 @@ elseif has('unix')
 endif
 set mouse=a         " どのモードでもマウスを利用可能
 set nomousefocus    " マウス移動によるフォーカス切り替えを無効
-"set go+=T           " ツールバーを表示
+set guioptions-=T   " Hide toolbar
