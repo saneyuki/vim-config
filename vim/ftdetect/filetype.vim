@@ -8,5 +8,9 @@ autocmd BufNewFile,BufRead *.jsm
 autocmd BufNewFile,BufRead *.xul
   \ setlocal tabstop=2 softtabstop=0 shiftwidth=2 expandtab
 
+" html file
+autocmd BufNewFile,BufRead *.html,*.htm
+  \ NeoBundleSource zencoding-vim
+
 " plain text file
 autocmd FileType text setlocal wrap
