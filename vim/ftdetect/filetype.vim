@@ -10,6 +10,7 @@ autocmd BufNewFile,BufRead *.xul
 
 " html file
 autocmd FileType html
+  \ NeoBundleSource html5.vim
   \ NeoBundleSource zencoding-vim
 
 " plain text file

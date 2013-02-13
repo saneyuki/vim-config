@@ -263,6 +263,7 @@ NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
 NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 
 NeoBundleLazy 'git://github.com/mattn/zencoding-vim.git'
+NeoBundleLazy 'git://github.com/othree/html5.vim.git'
 
 filetype plugin on
 filetype indent on
