@@ -10,6 +10,11 @@
 " vim
 set nocompatible
 
+" set runtime path for windows.
+if has('win32') || has('win64')
+  set runtimepath+=$HOME/.vim,$HOME/.vim/after
+endif
+
 " カラースキームの設定
 "colorscheme straight
 
