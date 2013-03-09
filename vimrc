@@ -2,13 +2,12 @@
 " .vimrc
 "---------------------------------------------------------------------------
 
+" vim
+set nocompatible
 
 "---------------------------------------------------------------------------
 " Common
 "
-
-" vim
-set nocompatible
 
 " set runtime path for windows.
 if has('win32') || has('win64')
