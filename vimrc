@@ -11,7 +11,7 @@
 set nocompatible
 
 " カラースキームの設定
-"colorscheme metroid
+"colorscheme straight
 
 " 背景色の傾向(カラースキームがそれに併せて色の明暗を変えてくれる)
 "set background=light
