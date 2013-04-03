@@ -45,13 +45,13 @@ hi ErrorMsg     cterm=bold ctermfg=7 ctermbg=1
 "
 
 " メニューアイテム
-hi Pmenu      guibg=#ffa0a0 guifg=gray20
+hi Pmenu      guibg=#ffa0a0 guifg=gray20 ctermfg=0 ctermbg=225
 " 選択されたアイテム
-hi PmenuSel   guibg=SkyBlue guifg=gray20
+hi PmenuSel   guibg=SkyBlue guifg=gray20 ctermfg=0 ctermbg=14
 " スクロールバー
-hi PmenuSbar  guibg=#ffa0a0 ctermbg=darkgray
+hi PmenuSbar  guibg=#ffa0a0 ctermbg=225
 " スクロールバーのツマミ
-hi PmenuThumb guibg=#ff6666 ctermbg=lightgray
+hi PmenuThumb guibg=#ff6666 ctermbg=7
 
 
 
@@ -178,7 +178,7 @@ hi Directory  ctermfg=darkcyan
 " 垂直分割したウィンドウの区切りとなる列
 hi VertSplit  guibg=#c2bfa5 guifg=grey50 gui=none cterm=reverse
 " ':number' と ':#' コマンドの行番号
-hi LineNr guifg=gray55 guibg=NONE cterm=NONE ctermfg=3
+hi LineNr guifg=gray55 guibg=NONE ctermfg=242 ctermbg=NONE
 " LineNr と同じだが 'cursorline' か 'relativenumber' が設定されているときに現在行に使われる
 "hi CursorLineNr
 " ':set all', ':autocmd' などによる出力のタイトル
