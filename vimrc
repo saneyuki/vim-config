@@ -98,10 +98,10 @@ set clipboard+=unnamed
 "set infercase
 
 " カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
-nnoremap j gj
-nnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up>   gk
+"nnoremap j gj
+"nnoremap k gk
+"nnoremap <Down> gj
+"nnoremap <Up>   gk
 
 
 "---------------------------------------------------------------------------
