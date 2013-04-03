@@ -45,13 +45,13 @@ hi ErrorMsg     cterm=bold ctermfg=7 ctermbg=1
 "
 
 " メニューアイテム
-hi Pmenu      guibg=#ffa0a0 guifg=gray20
+hi Pmenu      guibg=#ffa0a0 guifg=gray20 ctermfg=0 ctermbg=225
 " 選択されたアイテム
-hi PmenuSel   guibg=SkyBlue guifg=gray20
+hi PmenuSel   guibg=SkyBlue guifg=gray20 ctermfg=0 ctermbg=14
 " スクロールバー
-hi PmenuSbar  guibg=#ffa0a0 ctermbg=darkgray
+hi PmenuSbar  guibg=#ffa0a0 ctermbg=225
 " スクロールバーのツマミ
-hi PmenuThumb guibg=#ff6666 ctermbg=lightgray
+hi PmenuThumb guibg=#ff6666 ctermbg=7
 
 
 
