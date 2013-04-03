@@ -178,7 +178,7 @@ hi Directory  ctermfg=darkcyan
 " 垂直分割したウィンドウの区切りとなる列
 hi VertSplit  guibg=#c2bfa5 guifg=grey50 gui=none cterm=reverse
 " ':number' と ':#' コマンドの行番号
-hi LineNr guifg=gray55 guibg=NONE cterm=NONE ctermfg=3
+hi LineNr guifg=gray55 guibg=NONE ctermfg=242 ctermbg=NONE
 " LineNr と同じだが 'cursorline' か 'relativenumber' が設定されているときに現在行に使われる
 "hi CursorLineNr
 " ':set all', ':autocmd' などによる出力のタイトル
