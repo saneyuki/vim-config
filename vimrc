@@ -45,9 +45,6 @@ set nobackup
 " シンタックスカラーリングオン
 syntax enable
 
-" 起動時にホームディレクトリに移動
-cd ~/
-
 " ファイルブラウザの初期ディレクトリ
 set browsedir=buffer
 
