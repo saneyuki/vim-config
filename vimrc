@@ -2,13 +2,17 @@
 " .vimrc
 "---------------------------------------------------------------------------
 
+" vim
+set nocompatible
 
 "---------------------------------------------------------------------------
 " Common
 "
 
-" vim
-set nocompatible
+" set runtime path for windows.
+if has('win32') || has('win64')
+  set runtimepath+=$HOME/.vim,$HOME/.vim/after
+endif
 
 " カラースキームの設定
 "colorscheme straight
@@ -40,9 +44,6 @@ set nobackup
 
 " シンタックスカラーリングオン
 syntax enable
-
-" 起動時にホームディレクトリに移動
-cd ~/
 
 " ファイルブラウザの初期ディレクトリ
 set browsedir=buffer
@@ -94,10 +95,10 @@ set clipboard+=unnamed
 "set infercase
 
 " カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
-nnoremap j gj
-nnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up>   gk
+"nnoremap j gj
+"nnoremap k gk
+"nnoremap <Down> gj
+"nnoremap <Up>   gk
 
 
 "---------------------------------------------------------------------------
@@ -130,6 +131,9 @@ set incsearch
 " 検索文字をハイライト
 set hlsearch
 
+" 正規表現のメタ文字の扱いを常に'very magic'にする
+" （メタ文字を常にエスケープ不要にする）
+"nnoremap / /\v
 
 "---------------------------------------------------------------------------
 " View
