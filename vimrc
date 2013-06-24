@@ -264,7 +264,7 @@ if has('vim_starting')
   call neobundle#rc(expand('~/.vim/neobundle'))
 endif
 
-NeoBundle 'https://github.com/Shougo/neobundle.vim.git'
+NeoBundleFetch 'https://github.com/Shougo/neobundle.vim.git'
 if s:canUseLua
   NeoBundle 'https://github.com/Shougo/neocomplete.vim.git'
 else
