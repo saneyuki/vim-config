@@ -263,11 +263,11 @@ if has('vim_starting')
   call neobundle#rc(expand('~/.vim/neobundle'))
 endif
 
-NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+NeoBundle 'https://github.com/Shougo/neobundle.vim.git'
+NeoBundle 'https://github.com/Shougo/neocomplcache.git'
 
-NeoBundleLazy 'git://github.com/mattn/zencoding-vim.git'
-NeoBundleLazy 'git://github.com/othree/html5.vim.git'
+NeoBundleLazy 'https://github.com/mattn/zencoding-vim.git'
+NeoBundleLazy 'https://github.com/othree/html5.vim.git'
 
 filetype plugin on
 filetype indent on
