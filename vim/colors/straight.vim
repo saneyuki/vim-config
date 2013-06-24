@@ -45,14 +45,13 @@ hi ErrorMsg     cterm=bold ctermfg=7 ctermbg=1
 "
 
 " メニューアイテム
-hi Pmenu      guibg=#ffa0a0 guifg=gray20 ctermfg=0 ctermbg=225
+hi Pmenu      guibg=#ffa0a0 guifg=gray20 ctermfg=black ctermbg=magenta
 " 選択されたアイテム
-hi PmenuSel   guibg=SkyBlue guifg=gray20 ctermfg=0 ctermbg=14
+hi PmenuSel   guibg=SkyBlue guifg=gray20 ctermfg=black ctermbg=cyan
 " スクロールバー
-hi PmenuSbar  guibg=#ffa0a0 ctermbg=225
+hi PmenuSbar  guibg=#ffa0a0 ctermbg=magenta
 " スクロールバーのツマミ
 hi PmenuThumb guibg=#ff6666 ctermbg=7
-
 
 
 "-------------------------------------------------------------
@@ -78,11 +77,11 @@ hi Type       guifg=darkkhaki ctermfg=2
 " 特殊記号
 hi Special    guifg=navajowhite ctermfg=5
 " 目立つ文章, HTMLリンク
-"hi Underlined cterm=underline ctermfg=5
+hi Underlined cterm=underline ctermfg=5
 " (見た目上)空白, 不可視
 hi Ignore     guifg=grey40 cterm=bold ctermfg=darkgrey
 " エラーなど、なんらかの誤った構造
-"hi Error cterm=bold ctermfg=7 ctermbg=1
+hi Error cterm=bold ctermfg=7 ctermbg=1
 " ToDoキーワード
 hi Todo       guifg=orangered guibg=yellow2
 
@@ -100,11 +99,11 @@ hi SpecialKey guifg=yellowgreen ctermfg=darkgreen
 hi Visual     gui=none guifg=khaki guibg=olivedrab cterm=reverse
 " vimが 'Not Owning the Selection' のときのビジュアルモード選択
 " これをサポートしているのはX11GUI|gui-x11|と|xterm-clipboard|のみ
-"hi VisualNOS  cterm=bold,underline
+hi VisualNOS  cterm=bold,underline
 " 最後に検索した語のハイライト
-hi Search     guibg=peru guifg=wheat cterm=NONE ctermfg=grey ctermbg=blue
+hi Search     guibg=peru guifg=wheat cterm=NONE ctermfg=black ctermbg=magenta
 " 'incsearch' のハイライト; ":s///c" で置換されたテキストにも使われる
-hi IncSearch  guifg=slategrey guibg=khaki cterm=NONE ctermfg=yellow ctermbg=green
+hi IncSearch  guifg=slategrey guibg=khaki cterm=NONE ctermfg=yellow ctermbg=darkgreen
 " 閉じた折り畳みの行
 hi Folded     guibg=grey30 guifg=gold ctermfg=darkgrey ctermbg=NONE
 " 'foldcolumn'
@@ -147,13 +146,13 @@ hi FoldColumn guibg=grey30 guifg=tan ctermfg=darkgrey ctermbg=NONE
 "
 
 " 差分モード: 追加された行
-"hi DiffAdd    ctermbg=4
+hi DiffAdd    ctermbg=4
 " 差分モード: 変更された行
-"hi DiffChange ctermbg=5
+hi DiffChange ctermbg=5
 " 差分モード: 削除された行
-"hi DiffDelete cterm=bold ctermfg=4 ctermbg=6
+hi DiffDelete cterm=bold ctermfg=4 ctermbg=6
 " 差分モード: 変更された行中の変更されたテキスト
-"hi DiffText   cterm=bold ctermbg=1
+hi DiffText   cterm=bold ctermbg=1
 
 
 
@@ -172,19 +171,19 @@ hi Cursor guibg=khaki guifg=slategrey
 " 'cursorcolumn' がオンになっているときのカーソルがある画面上の列
 "hi CursorColumn
 " 'cursorline' がオンになっているときのカーソルがある画面上の行
-"hi CursorLine
+hi CursorLine ctermfg=white
 " ディレクトリ名(とリストにある特別な名前)
 hi Directory  ctermfg=darkcyan
 " 垂直分割したウィンドウの区切りとなる列
 hi VertSplit  guibg=#c2bfa5 guifg=grey50 gui=none cterm=reverse
 " ':number' と ':#' コマンドの行番号
-hi LineNr guifg=gray55 guibg=NONE ctermfg=242 ctermbg=NONE
+hi LineNr guifg=gray55 guibg=NONE ctermfg=3
 " LineNr と同じだが 'cursorline' か 'relativenumber' が設定されているときに現在行に使われる
 "hi CursorLineNr
 " ':set all', ':autocmd' などによる出力のタイトル
 hi Title  ctermfg=5 guifg=indianred
 " 'wildmenu' 補完における現在の候補
-"hi WildMenu ctermfg=0 ctermbg=3
+hi WildMenu ctermfg=0 ctermbg=3
 " メニューのフォント、文字、背景。ツールバーにも使われる (引数にfont, guibg, guifgが使える)
 "hi Menu
 " メインウィンドウのスクロールバーの文字と背景

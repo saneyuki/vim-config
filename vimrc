@@ -71,6 +71,9 @@ set expandtab
 " 自動でインデント
 set autoindent
 
+" '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
+set shiftround
+
 " 新しい行のインデントを現在行と同じ量に
 set smartindent
 
