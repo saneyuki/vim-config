@@ -274,8 +274,10 @@ else
   NeoBundle 'https://github.com/Shougo/neocomplcache.git'
 endif
 
-NeoBundleLazy 'https://github.com/mattn/zencoding-vim.git'
-NeoBundleLazy 'https://github.com/othree/html5.vim.git'
+NeoBundleLazy 'https://github.com/mattn/zencoding-vim.git', {
+  \ "autoload": {"filetypes": ['html', 'xhtml']}}
+NeoBundleLazy 'https://github.com/othree/html5.vim.git', {
+  \ "autoload": {"filetypes": ['html', 'xhtml']}}
 
 filetype plugin on
 filetype indent on
