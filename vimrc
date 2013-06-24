@@ -251,6 +251,7 @@ endfunction
 "---------------------------------------------------------------------------
 " Plugins
 "
+let s:canUseLua = has('lua')
 
 "----------------
 " neobundle.vim
@@ -264,7 +265,11 @@ if has('vim_starting')
 endif
 
 NeoBundle 'https://github.com/Shougo/neobundle.vim.git'
-NeoBundle 'https://github.com/Shougo/neocomplcache.git'
+if s:canUseLua
+  NeoBundle 'https://github.com/Shougo/neocomplete.vim.git'
+else
+  NeoBundle 'https://github.com/Shougo/neocomplcache.git'
+endif
 
 NeoBundleLazy 'https://github.com/mattn/zencoding-vim.git'
 NeoBundleLazy 'https://github.com/othree/html5.vim.git'
@@ -285,14 +290,22 @@ let g:user_zen_settings = { 'indentation':'  ' }
 " neocomplcache
 "
 
-" neocomplcache を起動時に有効化する
-let g:neocomplcache_enable_at_startup = 1
+if s:canUseLua
+  " neocomplete を起動時に有効化する
+  let g:neocomplete#enable_at_startup = 1
 
-" smartcase 機能を有効化する
-let g:neocomplcache_enable_smart_case = 1
+  " smartcase 機能を有効化する
+  let g:neocomplete#enable_smart_case = 1
+else
+  " neocomplcache を起動時に有効化する
+  let g:neocomplcache_enable_at_startup = 1
 
-" syntax キャッシュの最小文字数を変更する (デフォルト4)
-"let g:neocomplcache_min_syntax_length = 3
+  " smartcase 機能を有効化する
+  let g:neocomplcache_enable_smart_case = 1
 
-" _区切りの後でも補完を開始する
-"let g:neocomplcache_enable_underbar_completion = 1
+  " syntax キャッシュの最小文字数を変更する (デフォルト4)
+  "let g:neocomplcache_min_syntax_length = 3
+
+  " _区切りの後でも補完を開始する
+  "let g:neocomplcache_enable_underbar_completion = 1
+endif
