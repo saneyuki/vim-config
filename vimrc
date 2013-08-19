@@ -272,7 +272,7 @@ if s:canUseLua
   NeoBundle 'https://github.com/Shougo/neocomplete.vim.git'
 endif
 
-NeoBundleLazy 'https://github.com/mattn/zencoding-vim.git', {
+NeoBundleLazy 'https://github.com/mattn/emmet-vim.git', {
   \ "autoload": {"filetypes": ['html', 'xhtml']}}
 NeoBundleLazy 'https://github.com/othree/html5.vim.git', {
   \ "autoload": {"filetypes": ['html', 'xhtml']}}
@@ -286,7 +286,7 @@ filetype indent on
 "
 
 " インデントの調節
-let g:user_zen_settings = { 'indentation':'  ' }
+let g:user_emmet_settings = { 'indentation':'  ' }
 
 
 "----------------
