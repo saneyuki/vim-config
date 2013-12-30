@@ -257,9 +257,13 @@ let s:canUseLua = has('lua')
 filetype off
 
 if has('vim_starting')
-  set runtimepath+=~/.vim/neobundle/neobundle.vim
-
-  call neobundle#rc(expand('~/.vim/neobundle'))
+  if has('win32') || has('win64')
+    set runtimepath+=~/vimfiles/neobundle/neobundle.vim
+    call neobundle#rc(expand('~/vimfiles/neobundle'))
+  else
+    set runtimepath+=~/.vim/neobundle/neobundle.vim
+    call neobundle#rc(expand('~/.vim/neobundle'))
+  endif
 endif
 
 NeoBundleFetch 'https://github.com/Shougo/neobundle.vim.git'
