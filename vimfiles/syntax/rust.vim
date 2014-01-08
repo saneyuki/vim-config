@@ -3,7 +3,7 @@
 " Maintainer:   Patrick Walton <pcwalton@mozilla.com>
 " Maintainer:   Ben Blum <bblum@cs.cmu.edu>
 " Maintainer:   Chris Morgan <me@chrismorgan.info>
-" Last Change:  2013 Dec 04
+" Last Change:  2013 Dec 10
 
 if version < 600
   syntax clear
@@ -19,9 +19,8 @@ syn keyword   rustOperator    as
 syn match     rustAssert      "\<assert\(\w\)*!" contained
 syn match     rustFail        "\<fail\(\w\)*!" contained
 syn keyword   rustKeyword     break continue do extern
-syn keyword   rustKeyword     in if impl let log
-syn keyword   rustKeyword     for impl let log
-syn keyword   rustKeyword     loop mod once priv pub
+syn keyword   rustKeyword     for in if impl let
+syn keyword   rustKeyword     loop once priv pub
 syn keyword   rustKeyword     return
 syn keyword   rustKeyword     unsafe while
 syn keyword   rustKeyword     use nextgroup=rustModPath skipwhite
@@ -29,13 +28,14 @@ syn keyword   rustKeyword     use nextgroup=rustModPath skipwhite
 syn keyword   rustKeyword     mod trait struct enum type nextgroup=rustIdentifier skipwhite
 syn keyword   rustKeyword     fn nextgroup=rustFuncName skipwhite
 syn keyword   rustKeyword     proc
-syn keyword   rustStorage     const mut ref static
+syn keyword   rustStorage     mut ref static
+syn keyword   rustObsoleteStorage const
 
 syn match     rustIdentifier  contains=rustIdentifierPrime "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 syn match     rustFuncName    "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 
 " Reserved (but not yet used) keywords {{{2
-syn keyword   rustKeyword     alignof be offsetof pure sizeof typeof yield
+syn keyword   rustReservedKeyword alignof be offsetof pure sizeof typeof yield
 
 " Built-in types {{{2
 syn keyword   rustType        int uint float char bool u8 u16 u32 u64 f32
@@ -66,7 +66,7 @@ syn keyword   rustEnumVariant Ok Err
 
 " Types and traits {{{3
 syn keyword rustTrait Any AnyOwnExt AnyRefExt AnyMutRefExt
-syn keyword rustTrait Ascii AsciiCast OwnedAsciiCast AsciiStr ToBytesConsume
+syn keyword rustTrait Ascii AsciiCast OwnedAsciiCast AsciiStr IntoBytes
 syn keyword rustTrait Bool
 syn keyword rustTrait ToCStr
 syn keyword rustTrait Char
@@ -78,7 +78,7 @@ syn keyword rustTrait Default
 syn keyword rustTrait Hash
 syn keyword rustTrait FromStr
 syn keyword rustTrait FromIterator Extendable
-syn keyword rustTrait Iterator DoubleEndedIterator RandomAccessIterator ClonableIterator
+syn keyword rustTrait Iterator DoubleEndedIterator RandomAccessIterator CloneableIterator
 syn keyword rustTrait OrdIterator MutableDoubleEndedIterator ExactSize
 syn keyword rustTrait Times
 
@@ -94,7 +94,7 @@ syn keyword rustTrait Buffer Writer Reader Seek
 syn keyword rustTrait SendStr SendStrOwned SendStrStatic IntoSendStr
 syn keyword rustTrait Str StrVector StrSlice OwnedStr
 syn keyword rustTrait IterBytes
-syn keyword rustTrait ToStr ToStrConsume
+syn keyword rustTrait ToStr IntoStr
 syn keyword rustTrait CopyableTuple ImmutableTuple
 syn keyword rustTrait Tuple1 Tuple2 Tuple3 Tuple4
 syn keyword rustTrait Tuple5 Tuple6 Tuple7 Tuple8
@@ -160,14 +160,15 @@ syn match     rustHexNumber   display "\<0x[a-fA-F0-9_]\+\%([iu]\%(8\|16\|32\|64
 syn match     rustOctNumber   display "\<0o[0-7_]\+\%([iu]\%(8\|16\|32\|64\)\=\)\="
 syn match     rustBinNumber   display "\<0b[01_]\+\%([iu]\%(8\|16\|32\|64\)\=\)\="
 
-" To mark it as a float, it must have at least one of the three things integral values don't have:
+" Special case for numbers of the form "1." which are float literals, unless followed by
+" an identifier, which makes them integer literals with a method call or field access.
+" (This must go first so the others take precedence.)
+syn match     rustFloat       display "\<[0-9][0-9_]*\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\@!"
+" To mark a number as a normal float, it must have at least one of the three things integral values don't have:
 " a decimal point and more numbers; an exponent; and a type suffix.
 syn match     rustFloat       display "\<[0-9][0-9_]*\%(\.[0-9][0-9_]*\)\%([eE][+-]\=[0-9_]\+\)\=\(f32\|f64\)\="
 syn match     rustFloat       display "\<[0-9][0-9_]*\%(\.[0-9][0-9_]*\)\=\%([eE][+-]\=[0-9_]\+\)\(f32\|f64\)\="
 syn match     rustFloat       display "\<[0-9][0-9_]*\%(\.[0-9][0-9_]*\)\=\%([eE][+-]\=[0-9_]\+\)\=\(f32\|f64\)"
-" Special case for numbers of the form "1." which are float literals, unless followed by
-" an identifier, which makes them integer literals with a method call or field access.
-syn match     rustFloat       display "\<[0-9][0-9_]*\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\@!"
 
 " For the benefit of delimitMate
 syn region rustLifetimeCandidate display start=/&'\%(\([^'\\]\|\\\(['nrt0\\\"]\|x\x\{2}\|u\x\{4}\|U\x\{8}\)\)'\)\@!/ end=/[[:cntrl:][:space:][:punct:]]\@=\|$/ contains=rustSigil,rustLifetime
@@ -227,6 +228,7 @@ hi def link rustSelf          Constant
 hi def link rustFloat         Float
 hi def link rustOperator      Operator
 hi def link rustKeyword       Keyword
+hi def link rustReservedKeyword Error
 hi def link rustConditional   Conditional
 hi def link rustIdentifier    Identifier
 hi def link rustCapsIdent     rustIdentifier
@@ -247,6 +249,7 @@ hi def link rustTodo          Todo
 hi def link rustAttribute     PreProc
 hi def link rustDeriving      PreProc
 hi def link rustStorage       StorageClass
+hi def link rustObsoleteStorage Error
 hi def link rustLifetime      Special
 
 " Other Suggestions:
