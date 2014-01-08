@@ -289,7 +289,7 @@ let g:user_emmet_settings = { 'indentation':'  ' }
 
 
 "----------------
-" neocomplcache
+" neocomplete
 "
 
 if s:canUseLua
