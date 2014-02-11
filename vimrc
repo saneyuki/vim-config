@@ -98,6 +98,9 @@ set clipboard+=unnamed
 "nnoremap <Down> gj
 "nnoremap <Up>   gk
 
+" 対応する括弧の表示に'<'と'>'のペアを追加
+"set matchpairs& matchpairs+=<:>
+
 
 "---------------------------------------------------------------------------
 " Complement Command
