@@ -98,6 +98,9 @@ set clipboard+=unnamed
 "nnoremap <Down> gj
 "nnoremap <Up>   gk
 
+" 対応する括弧の表示に'<'と'>'のペアを追加
+"set matchpairs& matchpairs+=<:>
+
 
 "---------------------------------------------------------------------------
 " Complement Command
@@ -151,6 +154,12 @@ set number
 
 " 画面幅で折り返さない
 set nowrap
+
+" 自動で折り返しする1行あたりのテキスト量 (0で無効化)
+"set textwidth=0
+
+" n列目にラインを表示
+"set colorcolumn=80
 
 " 不可視文字表示
 set list
