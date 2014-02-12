@@ -303,7 +303,7 @@ let g:user_emmet_settings = { 'indentation':'  ' }
 
 if s:canUseLua
   " neocomplete を起動時に有効化する
-  let g:neocomplete#enable_at_startup = 1
+  "let g:neocomplete#enable_at_startup = 1
 
   " smartcase 機能を有効化する
   let g:neocomplete#enable_smart_case = 1
