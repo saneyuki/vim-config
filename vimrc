@@ -92,12 +92,6 @@ set clipboard+=unnamed
 " 挿入モードでの単語補完時に大文字小文字を無視する
 "set infercase
 
-" カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
-"nnoremap j gj
-"nnoremap k gk
-"nnoremap <Down> gj
-"nnoremap <Up>   gk
-
 " 対応する括弧の表示に'<'と'>'のペアを追加
 "set matchpairs& matchpairs+=<:>
 
