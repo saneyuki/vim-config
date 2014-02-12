@@ -156,8 +156,8 @@ set number
 set nowrap
 
 " 自動で折り返しする1行あたりのテキスト量 (0で無効化)
+" ( ref. http://vim-users.jp/2011/05/hack217/ )
 "set textwidth=0
-
 " n列目にラインを表示
 "set colorcolumn=80
 
