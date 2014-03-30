@@ -31,6 +31,9 @@ set hidden
 " スワップファイルを作らない
 set noswapfile
 
+" undoファイルを作らない
+set noundofile
+
 " バックアップを取らない
 set nobackup
 
