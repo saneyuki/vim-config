@@ -52,7 +52,7 @@ syn keyword   rustType        f64 i8 i16 i32 i64 str Self
 " to make it easy to update.
 
 " Core operators {{{3
-syn keyword   rustTrait       Freeze Pod Send Sized
+syn keyword   rustTrait       Share Copy Send Sized
 syn keyword   rustTrait       Add Sub Mul Div Rem Neg Not
 syn keyword   rustTrait       BitAnd BitOr BitXor
 syn keyword   rustTrait       Drop
@@ -72,7 +72,7 @@ syn keyword rustTrait Any AnyOwnExt AnyRefExt AnyMutRefExt
 syn keyword rustTrait Ascii AsciiCast OwnedAsciiCast AsciiStr IntoBytes
 syn keyword rustTrait ToCStr
 syn keyword rustTrait Char
-syn keyword rustTrait Clone DeepClone
+syn keyword rustTrait Clone
 syn keyword rustTrait Eq Ord TotalEq TotalOrd Ordering Equiv
 syn keyword rustEnumVariant Less Equal Greater
 syn keyword rustTrait Container Mutable Map MutableMap Set MutableSet
@@ -96,7 +96,7 @@ syn keyword rustTrait MutableVector MutableTotalOrdVector
 syn keyword rustTrait Vector VectorVector CloneableVector ImmutableVector
 
 "syn keyword rustFunction stream
-syn keyword rustTrait Port Chan
+syn keyword rustTrait Sender Receiver
 "syn keyword rustFunction spawn
 
 syn keyword   rustSelf        self
