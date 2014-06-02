@@ -96,7 +96,7 @@ set clipboard+=unnamed
 "set infercase
 
 " 対応する括弧の表示に'<'と'>'のペアを追加
-"set matchpairs& matchpairs+=<:>
+set matchpairs& matchpairs+=<:>
 
 
 "---------------------------------------------------------------------------
