@@ -31,6 +31,9 @@ set hidden
 " スワップファイルを作らない
 set noswapfile
 
+" undoファイルを作らない
+set noundofile
+
 " バックアップを取らない
 set nobackup
 
@@ -92,14 +95,8 @@ set clipboard+=unnamed
 " 挿入モードでの単語補完時に大文字小文字を無視する
 "set infercase
 
-" カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
-"nnoremap j gj
-"nnoremap k gk
-"nnoremap <Down> gj
-"nnoremap <Up>   gk
-
 " 対応する括弧の表示に'<'と'>'のペアを追加
-"set matchpairs& matchpairs+=<:>
+set matchpairs& matchpairs+=<:>
 
 
 "---------------------------------------------------------------------------
@@ -156,8 +153,8 @@ set number
 set nowrap
 
 " 自動で折り返しする1行あたりのテキスト量 (0で無効化)
+" ( ref. http://vim-users.jp/2011/05/hack217/ )
 "set textwidth=0
-
 " n列目にラインを表示
 "set colorcolumn=80
 
