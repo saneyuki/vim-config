@@ -6,23 +6,21 @@ import os
 CURRENT_PATH = os.getcwd()
 HOME = os.environ['HOME']
 
-SRC = {
-        "vimrc": CURRENT_PATH + "/vimrc",
-        "gvimrc": CURRENT_PATH + "/gvimrc",
-        "vimfiles": CURRENT_PATH + "/vimfiles",
-}
-
-LINK = {
-        "vimrc": HOME + "/.vimrc",
-        "gvimrc": HOME + "/.gvimrc",
-        "vimfiles": HOME + "/.vim",
-}
-
+LINK = [
+    ("/vimrc",       "/.vimrc"),
+    ("/gvimrc",      "/.gvimrc"),
+    ("/vimfiles",    "/.vim"),
+]
 
 # Remove current exist links.
-for key in LINK:
-    os.remove(LINK[key])
+for (_, link) in LINK:
+    try:
+        os.remove(HOME + link)
+    except OSError:
+        pass
 
 # Make links
-for key in LINK:
-    os.symlink(SRC[key], LINK[key])
+for (src, link) in LINK:
+    src = CURRENT_PATH + src
+    link = HOME + link
+    os.symlink(src, link)
