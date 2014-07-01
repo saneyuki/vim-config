@@ -11,7 +11,7 @@ colorscheme straight
 if has("mac")
 "  opacity
 "  set transparency=30
-"  set guifont=Monaco:h14
+  set guifont=Inconsolata:h14
   set columns=160
   set lines=100
 elseif has('win32') || has('win64')
