@@ -281,6 +281,8 @@ NeoBundleLazy 'https://github.com/mattn/emmet-vim.git', {
   \ "autoload": {"filetypes": ['html', 'xhtml']}}
 NeoBundleLazy 'https://github.com/othree/html5.vim.git', {
   \ "autoload": {"filetypes": ['html', 'xhtml']}}
+NeoBundleLazy 'https://github.com/hail2u/vim-css3-syntax.git', {
+  \ "autoload": {"filetypes": ['css', 'scss']}}
 NeoBundleLazy 'https://github.com/leafgarland/typescript-vim.git', {
   \ 'autoload': {'filetypes': ['typescript']}}
 
