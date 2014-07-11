@@ -283,6 +283,8 @@ NeoBundleLazy 'https://github.com/othree/html5.vim.git', {
   \ "autoload": {"filetypes": ['html', 'xhtml']}}
 NeoBundleLazy 'https://github.com/hail2u/vim-css3-syntax.git', {
   \ "autoload": {"filetypes": ['css', 'scss']}}
+NeoBundleLazy 'https://bitbucket.org/teramako/jscomplete-vim.git', {
+  \ 'autoload': {'filetypes': ['javascript']}}
 NeoBundleLazy 'https://github.com/leafgarland/typescript-vim.git', {
   \ 'autoload': {'filetypes': ['typescript']}}
 
@@ -309,3 +311,13 @@ if s:canUseLua
   " smartcase 機能を有効化する
   let g:neocomplete#enable_smart_case = 1
 endif
+
+"----------------
+" jscomplete-vim
+"
+
+let g:jscomplete_use = ['dom']
+
+" Omni補完に登録
+autocmd FileType javascript
+  \ :setl omnifunc=jscomplete#CompleteJS
