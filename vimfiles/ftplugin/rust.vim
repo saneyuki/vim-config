@@ -2,7 +2,7 @@
 " Description:  Vim syntax file for Rust
 " Maintainer:   Chris Morgan <me@chrismorgan.info>
 " Maintainer:   Kevin Ballard <kevin@sb.org>
-" Last Change:  May 27, 2014
+" Last Change:  Jul 07, 2014
 
 if exists("b:did_ftplugin")
 	finish
@@ -31,6 +31,14 @@ setlocal formatoptions-=t formatoptions+=croqnl
 " j was only added in 7.3.541, so stop complaints about its nonexistence
 silent! setlocal formatoptions+=j
 
+" smartindent will be overridden by indentexpr if filetype indent is on, but
+" otherwise it's better than nothing.
+setlocal smartindent nocindent
+
+setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+
+setlocal textwidth=99
+
 " This includeexpr isn't perfect, but it's a good start
 setlocal includeexpr=substitute(v:fname,'::','/','g')
 
@@ -46,6 +54,21 @@ if exists("g:loaded_delimitMate")
 		let b:rust_original_delimitMate_excluded_regions = b:delimitMate_excluded_regions
 	endif
 	let b:delimitMate_excluded_regions = delimitMate#Get("excluded_regions") . ',rustLifetimeCandidate,rustGenericLifetimeCandidate'
+endif
+
+if has("folding") && exists('g:rust_fold') && g:rust_fold != 0
+	let b:rust_set_foldmethod=1
+	setlocal foldmethod=syntax
+	if g:rust_fold == 2
+		setlocal foldlevel<
+	else
+		setlocal foldlevel=99
+	endif
+endif
+
+if has('conceal') && exists('g:rust_conceal')
+	let b:rust_set_conceallevel=1
+	setlocal conceallevel=2
 endif
 
 " Motion Commands {{{1
@@ -87,12 +110,21 @@ endif
 " Cleanup {{{1
 
 let b:undo_ftplugin = "
-		\setlocal formatoptions< comments< commentstring< includeexpr< suffixesadd<
+		\ setlocal formatoptions< comments< commentstring< includeexpr< suffixesadd<
+		\|setlocal tabstop< shiftwidth< softtabstop< expandtab< textwidth<
 		\|if exists('b:rust_original_delimitMate_excluded_regions')
 		  \|let b:delimitMate_excluded_regions = b:rust_original_delimitMate_excluded_regions
 		  \|unlet b:rust_original_delimitMate_excluded_regions
 		\|else
 		  \|unlet! b:delimitMate_excluded_regions
+		\|endif
+		\|if exists('b:rust_set_foldmethod')
+		  \|setlocal foldmethod< foldlevel<
+		  \|unlet b:rust_set_foldmethod
+		\|endif
+		\|if exists('b:rust_set_conceallevel')
+		  \|setlocal conceallevel<
+		  \|unlet b:rust_set_conceallevel
 		\|endif
 		\|unlet! b:rust_last_rustc_args b:rust_last_args
 		\|delcommand RustRun
