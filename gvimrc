@@ -25,6 +25,5 @@ elseif has('win32') || has('win64')
   set lines=100
 elseif has('unix')
 endif
-set mouse=a         " どのモードでもマウスを利用可能
 set nomousefocus    " マウス移動によるフォーカス切り替えを無効
 set guioptions-=T   " Hide toolbar
