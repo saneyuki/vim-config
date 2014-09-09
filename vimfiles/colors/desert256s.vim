@@ -38,7 +38,7 @@ if version > 580
         syntax reset
     endif
 endif
-let g:colors_name="desert256"
+let g:colors_name="desert256s"
 
 if &t_Co == 88 || &t_Co == 256
     " functions {{{
