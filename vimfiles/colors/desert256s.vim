@@ -283,6 +283,11 @@ if &t_Co == 88 || &t_Co == 256
     "Scrollbar
     "Tooltip
 
+    call <SID>X("Pmenu", "000000", "ffa0a0", "")
+    call <SID>X("PmenuSel", "000000", "87ceeb", "")
+    call <SID>X("PmenuSbar", "", "ffa0a0", "")
+    call <SID>X("PmenuThumb", "", "ff6666", "")
+
     " syntax highlighting groups
     call <SID>X("Comment", "87ceeb", "", "")
     call <SID>X("Constant", "ffa0a0", "", "")
