@@ -1,4 +1,14 @@
 " Vim color file
+" forked from desert256.vim
+"
+" # references
+"   * `:he group-name`
+"   * `:he highlight-groups`
+"   * `:he cterm-colors`
+"
+"------------------------------------------------------------------------------
+
+" Vim color file
 " Maintainer: Henry So, Jr. <henryso@panix.com>
 
 " These are the colors of the "desert" theme by Hans Fugal with a few small
