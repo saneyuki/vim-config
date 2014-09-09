@@ -10,7 +10,7 @@ set nocompatible
 "
 
 " カラースキームの設定
-"colorscheme straight
+"colorscheme desert256s
 
 " 背景色の傾向(カラースキームがそれに併せて色の明暗を変えてくれる)
 "set background=light
