@@ -5,12 +5,12 @@ rem we need to run this bat as root.
 rem
 
 rem remove old symbolic links
-rm %HOME%\.vimrc
-rm %HOME%\.gvimrc
-rd %HOME%\vimfiles
+rm %USERPROFILE%\.vimrc
+rm %USERPROFILE%\.gvimrc
+rd %USERPROFILE%\vimfiles
 
 rem create new symbolic links
-mklink %HOME%\.vimrc  %CD%\vimrc
-mklink %HOME%\.gvimrc  %CD%\gvimrc
-mklink /D %HOME%\vimfiles  %CD%\vimfiles
+mklink %USERPROFILE%\.vimrc  %CD%\vimrc
+mklink %USERPROFILE%\.gvimrc  %CD%\gvimrc
+mklink /D %USERPROFILE%\vimfiles  %CD%\vimfiles
 
