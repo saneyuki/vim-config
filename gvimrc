@@ -19,12 +19,11 @@ elseif has('win32') || has('win64')
   set guifont=Consolas:h10.5
   "全角文字のフォント設定
   "encoding=utf-8 かつ guifontset が空または Invalid の時のみ有効
-  set guifontwide=MeiryoKe_Console:h10.5
-  set rop=type:directx
+  set guifontwide=MeiryoKe_Console:h10.5,MS_Gothic:h10.5
+  set renderoptions=type:directx
   set columns=120
   set lines=100
 elseif has('unix')
 endif
-set mouse=a         " どのモードでもマウスを利用可能
 set nomousefocus    " マウス移動によるフォーカス切り替えを無効
 set guioptions-=T   " Hide toolbar

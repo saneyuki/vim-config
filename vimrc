@@ -10,7 +10,10 @@ set nocompatible
 "
 
 " カラースキームの設定
-"colorscheme desert256s
+" 256色出せる端末を使っている環境だけ有効にする
+if has('mac')
+  colorscheme desert256s
+endif
 
 " Enable mouse support.
 set mouse=a
