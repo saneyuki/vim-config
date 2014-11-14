@@ -262,12 +262,14 @@ filetype off
 if has('vim_starting')
   if has('win32') || has('win64')
     set runtimepath+=~/vimfiles/neobundle/neobundle.vim
-    call neobundle#begin(expand('~/vimfiles/neobundle'))
+    let s:neobundle_dir = '~/vimfiles/neobundle'
   else
     set runtimepath+=~/.vim/neobundle/neobundle.vim
-    call neobundle#begin(expand('~/.vim/neobundle'))
+    let s:neobundle_dir = '~/.vim/neobundle'
   endif
 endif
+
+call neobundle#begin(expand(s:neobundle_dir))
 
 NeoBundleFetch 'https://github.com/Shougo/neobundle.vim.git'
 if s:canUseLua
@@ -285,9 +287,7 @@ NeoBundleLazy 'https://bitbucket.org/teramako/jscomplete-vim.git', {
 NeoBundleLazy 'https://github.com/leafgarland/typescript-vim.git', {
   \ 'autoload': {'filetypes': ['typescript']}}
 
-if has('vim_starting')
-  call neobundle#end()
-endif
+call neobundle#end()
 
 filetype plugin on
 filetype indent on
