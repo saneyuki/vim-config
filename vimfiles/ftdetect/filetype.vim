@@ -18,4 +18,8 @@ augroup vimrc_filetype
   " plain text file
   autocmd FileType text setlocal wrap
 
+  " golang
+  autocmd FileType go
+    \ setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
+
 augroup END
