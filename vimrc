@@ -288,6 +288,11 @@ NeoBundleLazy 'https://bitbucket.org/teramako/jscomplete-vim.git', {
   \ 'autoload': {'filetypes': ['javascript']}}
 NeoBundleLazy 'https://github.com/leafgarland/typescript-vim.git', {
   \ 'autoload': {'filetypes': ['typescript']}}
+" Golang
+NeoBundleLazy 'https://github.com/google/vim-ft-go.git', {
+  \ 'autoload': {'filetypes': ['go']}}
+NeoBundleLazy 'https://github.com/vim-jp/vim-go-extra.git', {
+  \ 'autoload': {'filetypes': ['go']}}
 
 call neobundle#end()
 
@@ -324,3 +329,11 @@ let g:jscomplete_use = ['dom']
 " Omni補完に登録
 autocmd FileType javascript
   \ :setl omnifunc=jscomplete#CompleteJS
+
+
+"----------------
+" vim-go-extra
+"
+" ファイル保存時に`:Fmt`を実行
+autocmd FileType go
+\ autocmd BufWritePre <buffer> Fmt
