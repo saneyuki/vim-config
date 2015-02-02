@@ -282,6 +282,8 @@ if s:canUseLua
   NeoBundle 'https://github.com/Shougo/neocomplete.vim.git'
 endif
 
+NeoBundle 'editorconfig/editorconfig-vim'
+
 NeoBundleLazy 'https://github.com/mattn/emmet-vim.git', {
   \ "autoload": {"filetypes": ['html', 'xhtml']}}
 NeoBundleLazy 'https://github.com/othree/html5.vim.git', {
