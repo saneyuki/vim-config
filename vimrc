@@ -76,7 +76,7 @@ set smartindent
 
 
 "---------------------------------------------------------------------------
-" Assist imputting
+" Assist Input
 "
 
 " バックスペースで特殊記号も削除可能に
@@ -96,6 +96,12 @@ set clipboard+=unnamed
 
 " 対応する括弧の表示に'<'と'>'のペアを追加
 set matchpairs& matchpairs+=<:>
+
+" insert modeもhjklでカーソル移動できるようにremap
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
 
 
 "---------------------------------------------------------------------------
