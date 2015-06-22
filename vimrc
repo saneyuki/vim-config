@@ -301,9 +301,7 @@ NeoBundleLazy 'https://bitbucket.org/teramako/jscomplete-vim.git', {
 NeoBundleLazy 'https://github.com/leafgarland/typescript-vim.git', {
   \ 'autoload': {'filetypes': ['typescript']}}
 " Golang
-NeoBundleLazy 'https://github.com/google/vim-ft-go.git', {
-  \ 'autoload': {'filetypes': ['go']}}
-NeoBundleLazy 'https://github.com/vim-jp/vim-go-extra.git', {
+NeoBundleLazy 'https://github.com/fatih/vim-go.git', {
   \ 'autoload': {'filetypes': ['go']}}
 
 call neobundle#end()
