@@ -303,6 +303,12 @@ NeoBundleLazy 'https://github.com/leafgarland/typescript-vim.git', {
 " Golang
 NeoBundleLazy 'https://github.com/fatih/vim-go.git', {
   \ 'autoload': {'filetypes': ['go']}}
+NeoBundleLazy 'https://github.com/phildawes/racer.git', {
+\   'autoload': {'filetypes': ['rust']},
+\   'build' : {
+\     'others': 'cargo build --release',
+\   }
+\ }
 
 call neobundle#end()
 
@@ -347,3 +353,14 @@ autocmd FileType javascript
 " ファイル保存時に`:Fmt`を実行
 autocmd FileType go
 \ autocmd BufWritePre <buffer> Fmt
+
+
+"----------------
+" Racer (Rust)
+"
+
+" NeoBundle経由でインストールしたRacerを使う場合は指定しない
+" let g:racer_cmd = $RUST_RACER_PATH . '/target/release/racer'
+
+" 指定しない場合, pluginに指定されたpathから探す
+let $RUST_SRC_PATH = $RUST_SRC_PATH
