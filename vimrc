@@ -315,6 +315,13 @@ call neobundle#end()
 filetype plugin on
 filetype indent on
 
+"----------------
+" EditorConfig
+"
+if has('win32') || has('win64')
+  let g:EditorConfig_exec_path = $HOME . '/bin/EditorConfig/bin/editorconfig.exe'
+endif
+
 
 "----------------
 " zencoding.vim
