@@ -363,7 +363,11 @@ autocmd FileType go
 " Racer (Rust)
 "
 
-let g:racer_cmd = $RUST_RACER_PATH . '/target/release/racer'
+if has('win32') || has('win64')
+  let g:racer_cmd = $RUST_RACER_PATH . '\target\release\racer'
+else
+  let g:racer_cmd = $RUST_RACER_PATH . '/target/release/racer'
+endif
 
 " 指定しない場合, pluginに指定されたpathから探す
 let $RUST_SRC_PATH = $RUST_SRC_PATH
