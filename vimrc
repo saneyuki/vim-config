@@ -352,14 +352,6 @@ autocmd FileType javascript
 
 
 "----------------
-" vim-go-extra
-"
-" ファイル保存時に`:Fmt`を実行
-autocmd FileType go
-\ autocmd BufWritePre <buffer> Fmt
-
-
-"----------------
 " Racer (Rust)
 "
 
