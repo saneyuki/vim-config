@@ -256,3 +256,9 @@ function! s:GetHighlight(hi)
 endfunction
 
 
+"----------------
+" rust.vim
+"
+
+" Enable rustfmt on save.
+"let g:rustfmt_autosave = 1
