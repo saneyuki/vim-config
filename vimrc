@@ -256,7 +256,6 @@ function! s:GetHighlight(hi)
 endfunction
 
 
-
 "---------------------------------------------------------------------------
 " Plugins
 "
@@ -349,6 +348,14 @@ let g:jscomplete_use = ['dom']
 " Omni補完に登録
 autocmd FileType javascript
   \ :setl omnifunc=jscomplete#CompleteJS
+
+
+"----------------
+" rust.vim
+"
+
+" Enable rustfmt on save.
+"let g:rustfmt_autosave = 1
 
 
 "----------------
