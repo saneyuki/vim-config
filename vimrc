@@ -203,30 +203,6 @@ set laststatus=2
 
 set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l,%c%V%8P
 
-
-"---------------------------------------------------------------------------
-" Charset, Line ending
-"
-
-"端末への出力に使用されるエンコーディング
-if has('win32') || has('win64')
-  set termencoding=cp932
-else
-  set termencoding=utf-8
-endif
-
-" Vimが内部で使用するエンコーディング
-" fileencodings がすべて失敗した場合のデフォルト
-set encoding=utf-8
-
-" Vim がファイルを開く際に先頭から適用する
-set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp
-
-" 改行文字: LF, CRLF, CR
-set ffs=unix,dos,mac
-
-set ambiwidth=double
-
 " 挿入モード時にステータスラインの色を変更する
 let s:hi_insert = 'highlight StatusLine gui=None guifg=Black guibg=Yellow cterm=None ctermfg=Black ctermbg=Yellow'
 let s:slhlcmd = ''
@@ -264,6 +240,30 @@ endfunction
 
 " get initial color scheme.
 call s:initHighlight()
+
+
+"---------------------------------------------------------------------------
+" Charset, Line ending
+"
+
+"端末への出力に使用されるエンコーディング
+if has('win32') || has('win64')
+  set termencoding=cp932
+else
+  set termencoding=utf-8
+endif
+
+" Vimが内部で使用するエンコーディング
+" fileencodings がすべて失敗した場合のデフォルト
+set encoding=utf-8
+
+" Vim がファイルを開く際に先頭から適用する
+set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp
+
+" 改行文字: LF, CRLF, CR
+set ffs=unix,dos,mac
+
+set ambiwidth=double
 
 
 "---------------------------------------------------------------------------
