@@ -285,18 +285,18 @@ if s:use_dein && v:version >= 704
 
   filetype off
 
-  let s:dein_dir = s:rc_dir . '/dein'
+  let s:dein_dir = expand(s:rc_dir . '/dein')
 
   " dein source file
-  let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+  let s:dein_repo_dir = expand(s:dein_dir . '/repos/github.com/Shougo/dein.vim')
 
   if has('vim_starting')
     " If there are no dein, download from github.
-    if &runtimepath !~# '/dein.vim'
+    if &runtimepath !~# 'dein.vim'
       if !isdirectory(s:dein_repo_dir)
-        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+        call system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir')
       endif
-      execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+      let &runtimepath = &runtimepath . "," . fnamemodify(s:dein_repo_dir, ':p')
     endif
   endif
 
@@ -391,12 +391,7 @@ if s:use_dein && v:version >= 704
   "----------------
   " Racer (Rust)
   "
-
-  if s:isWin
-    let g:racer_cmd = $RUST_RACER_PATH . '\target\release\racer'
-  else
-    let g:racer_cmd = $RUST_RACER_PATH . '/target/release/racer'
-  endif
+  let g:racer_cmd = expand($RUST_RACER_PATH . '/target/release/racer')
 
   " 指定しない場合, pluginに指定されたpathから探す
   let $RUST_SRC_PATH = $RUST_SRC_PATH
