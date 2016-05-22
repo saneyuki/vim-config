@@ -333,6 +333,9 @@ if s:use_dein && v:version >= 704
     call dein#add('fatih/vim-go', {
       \ 'on_ft': ['go'],
       \ 'lazy': 1})
+    call dein#add('rust-lang/rust.vim', {
+      \ 'on_ft': ['rust'],
+      \ 'lazy': 1})
     call dein#add('racer-rust/vim-racer', {
       \ 'on_ft': ['rust'],
       \ 'lazy': 1})
