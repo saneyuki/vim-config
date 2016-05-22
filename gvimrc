@@ -22,7 +22,8 @@ elseif has('win32') || has('win64')
   "全角文字のフォント設定
   "encoding=utf-8 かつ guifontset が空または Invalid の時のみ有効
   set guifontwide=MeiryoKe_Console:h10,MS_Gothic:h10
-  set renderoptions=type:directx
+  " Avoid to slow move cursor
+  "set renderoptions=type:directx
   set columns=120
   set lines=100
 elseif has('unix')
