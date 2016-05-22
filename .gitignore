@@ -1,5 +1,5 @@
-# neobundle.vim
-vimfiles/neobundle/
+# dein.vim
+vimfiles/dein/
 
 # .netrwhist
 .netrwhist

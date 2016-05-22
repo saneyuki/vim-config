@@ -260,61 +260,80 @@ endfunction
 " Plugins
 "
 
-" Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
-
 let s:canUseLua = has('lua')
+let s:isWin = has('win32') || has('win64')
+let s:rc_dir = s:isWin ?
+  \ expand('~/vimfiles') :
+  \ expand('~/.vim')
 
 "----------------
-" neobundle.vim
+" dein.vim
 "
+
 filetype off
 
+let s:dein_dir = s:rc_dir . '/dein'
+
+" dein source file
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
 if has('vim_starting')
-  if has('win32') || has('win64')
-    set runtimepath+=~/vimfiles/neobundle/neobundle.vim
-    let s:neobundle_dir = '~/vimfiles/neobundle'
-  else
-    set runtimepath+=~/.vim/neobundle/neobundle.vim
-    let s:neobundle_dir = '~/.vim/neobundle'
+  " If there are no dein, download from github.
+  if &runtimepath !~# '/dein.vim'
+    if !isdirectory(s:dein_repo_dir)
+      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+    endif
+    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
   endif
 endif
 
-call neobundle#begin(expand(s:neobundle_dir))
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
 
-NeoBundleFetch 'https://github.com/Shougo/neobundle.vim.git'
-if s:canUseLua
-  NeoBundle 'https://github.com/Shougo/neocomplete.vim.git'
+  call dein#add('Shougo/dein.vim')
+  call dein#add('editorconfig/editorconfig-vim')
+
+  call dein#add('Shougo/neocomplete.vim', {
+    \ 'if': has('lua'),
+    \ 'on_event': ['InsertEnter'],
+    \ 'lazy': 1})
+
+  call dein#add('othree/html5.vim', {
+    \ 'on_ft': ['html', 'xhtml'],
+    \ 'lazy': 1})
+  call dein#add('mattn/emmet-vim', {
+    \ 'on_ft': ['html', 'xhtml'],
+    \ 'lazy': 1})
+  call dein#add('hail2u/vim-css3-syntax', {
+    \ 'on_ft': ['css', 'scss'],
+    \ 'lazy': 1})
+  call dein#add('leafgarland/typescript-vim', {
+    \ 'on_ft': ['typescript'],
+    \ 'lazy': 1})
+  call dein#add('fatih/vim-go', {
+    \ 'on_ft': ['go'],
+    \ 'lazy': 1})
+  call dein#add('racer-rust/vim-racer', {
+    \ 'on_ft': ['rust'],
+    \ 'lazy': 1})
+
+  call dein#end()
+  call dein#save_state()
 endif
 
-NeoBundle 'editorconfig/editorconfig-vim'
+" If there are some packages which has not installed yet,
+" try to install
+if dein#check_install()
+  call dein#install()
+endif
 
-NeoBundleLazy 'https://github.com/mattn/emmet-vim.git', {
-  \ "autoload": {"filetypes": ['html', 'xhtml']}}
-NeoBundleLazy 'https://github.com/othree/html5.vim.git', {
-  \ "autoload": {"filetypes": ['html', 'xhtml']}}
-NeoBundleLazy 'https://github.com/hail2u/vim-css3-syntax.git', {
-  \ "autoload": {"filetypes": ['css', 'scss']}}
-NeoBundleLazy 'https://bitbucket.org/teramako/jscomplete-vim.git', {
-  \ 'autoload': {'filetypes': ['javascript']}}
-NeoBundleLazy 'https://github.com/leafgarland/typescript-vim.git', {
-  \ 'autoload': {'filetypes': ['typescript']}}
-" Golang
-NeoBundleLazy 'https://github.com/fatih/vim-go.git', {
-  \ 'autoload': {'filetypes': ['go']}}
-" Rustlang
-NeoBundleLazy 'https://github.com/racer-rust/vim-racer.git', {
-\   'autoload': {'filetypes': ['rust']}}
+filetype plugin indent on
 
-call neobundle#end()
-
-filetype plugin on
-filetype indent on
 
 "----------------
 " EditorConfig
 "
-if has('win32') || has('win64')
+if s:isWin
   let g:EditorConfig_exec_path = $HOME . '/bin/EditorConfig/bin/editorconfig.exe'
 endif
 
@@ -340,17 +359,6 @@ if s:canUseLua
 endif
 
 "----------------
-" jscomplete-vim
-"
-
-let g:jscomplete_use = ['dom']
-
-" Omni補完に登録
-autocmd FileType javascript
-  \ :setl omnifunc=jscomplete#CompleteJS
-
-
-"----------------
 " rust.vim
 "
 
@@ -362,7 +370,7 @@ autocmd FileType javascript
 " Racer (Rust)
 "
 
-if has('win32') || has('win64')
+if s:isWin
   let g:racer_cmd = $RUST_RACER_PATH . '\target\release\racer'
 else
   let g:racer_cmd = $RUST_RACER_PATH . '/target/release/racer'
