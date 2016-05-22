@@ -270,141 +270,144 @@ call s:initHighlight()
 " Plugins
 "
 
-let s:canUseLua = has('lua')
-let s:isWin = has('win32') || has('win64')
-let s:rc_dir = s:isWin ?
-  \ expand('~/vimfiles') :
-  \ expand('~/.vim')
+let s:use_dein = 1
+if s:use_dein && v:version >= 704
 
-"----------------
-" dein.vim
-"
+  let s:canUseLua = has('lua')
+  let s:isWin = has('win32') || has('win64')
+  let s:rc_dir = s:isWin ?
+    \ expand('~/vimfiles') :
+    \ expand('~/.vim')
 
-filetype off
+  "----------------
+  " dein.vim
+  "
 
-let s:dein_dir = s:rc_dir . '/dein'
+  filetype off
 
-" dein source file
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+  let s:dein_dir = s:rc_dir . '/dein'
 
-if has('vim_starting')
-  " If there are no dein, download from github.
-  if &runtimepath !~# '/dein.vim'
-    if !isdirectory(s:dein_repo_dir)
-      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  " dein source file
+  let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+  if has('vim_starting')
+    " If there are no dein, download from github.
+    if &runtimepath !~# '/dein.vim'
+      if !isdirectory(s:dein_repo_dir)
+        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+      endif
+      execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
     endif
-    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
   endif
-endif
 
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
+  if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
 
-  call dein#add('Shougo/dein.vim')
-  call dein#add('editorconfig/editorconfig-vim')
+    call dein#add('Shougo/dein.vim')
+    call dein#add('editorconfig/editorconfig-vim')
 
-  if s:canUseLua && !has('nvim')
-    call dein#add('Shougo/neocomplete.vim', {
-      \ 'on_event': ['InsertEnter'],
+    if s:canUseLua && !has('nvim')
+      call dein#add('Shougo/neocomplete.vim', {
+        \ 'on_event': ['InsertEnter'],
+        \ 'lazy': 1})
+    endif
+
+    if has('nvim')
+      call dein#add('Shougo/deoplete.nvim', {
+        \ 'on_event': ['InsertEnter'],
+        \ 'lazy': 1})
+    endif
+
+    call dein#add('othree/html5.vim', {
+      \ 'on_ft': ['html', 'xhtml'],
       \ 'lazy': 1})
-  endif
-
-  if has('nvim')
-    call dein#add('Shougo/deoplete.nvim', {
-      \ 'on_event': ['InsertEnter'],
+    call dein#add('mattn/emmet-vim', {
+      \ 'on_ft': ['html', 'xhtml'],
       \ 'lazy': 1})
+    call dein#add('hail2u/vim-css3-syntax', {
+      \ 'on_ft': ['css', 'scss'],
+      \ 'lazy': 1})
+    call dein#add('leafgarland/typescript-vim', {
+      \ 'on_ft': ['typescript'],
+      \ 'lazy': 1})
+    call dein#add('fatih/vim-go', {
+      \ 'on_ft': ['go'],
+      \ 'lazy': 1})
+    call dein#add('racer-rust/vim-racer', {
+      \ 'on_ft': ['rust'],
+      \ 'lazy': 1})
+
+    call dein#end()
+    call dein#save_state()
   endif
 
-  call dein#add('othree/html5.vim', {
-    \ 'on_ft': ['html', 'xhtml'],
-    \ 'lazy': 1})
-  call dein#add('mattn/emmet-vim', {
-    \ 'on_ft': ['html', 'xhtml'],
-    \ 'lazy': 1})
-  call dein#add('hail2u/vim-css3-syntax', {
-    \ 'on_ft': ['css', 'scss'],
-    \ 'lazy': 1})
-  call dein#add('leafgarland/typescript-vim', {
-    \ 'on_ft': ['typescript'],
-    \ 'lazy': 1})
-  call dein#add('fatih/vim-go', {
-    \ 'on_ft': ['go'],
-    \ 'lazy': 1})
-  call dein#add('racer-rust/vim-racer', {
-    \ 'on_ft': ['rust'],
-    \ 'lazy': 1})
+  " If there are some packages which has not installed yet,
+  " try to install
+  if dein#check_install()
+    call dein#install()
+  endif
 
-  call dein#end()
-  call dein#save_state()
+  filetype plugin indent on
+
+  "----------------
+  " EditorConfig
+
+  if s:isWin
+    let g:EditorConfig_exec_path = $HOME . '/bin/EditorConfig/bin/editorconfig.exe'
+  endif
+
+
+  "----------------
+  " zencoding.vim
+  "
+
+  " インデントの調節
+  let g:user_emmet_settings = { 'indentation':'  ' }
+
+
+  "----------------
+  " neocomplete
+  "
+
+  if s:canUseLua
+    " neocomplete を起動時に有効化する
+    "let g:neocomplete#enable_at_startup = 1
+
+    " smartcase 機能を有効化する
+    let g:neocomplete#enable_smart_case = 1
+  endif
+
+  "----------------
+  " rust.vim
+  "
+
+  " Enable rustfmt on save.
+  "let g:rustfmt_autosave = 1
+
+
+  "----------------
+  " Racer (Rust)
+  "
+
+  if s:isWin
+    let g:racer_cmd = $RUST_RACER_PATH . '\target\release\racer'
+  else
+    let g:racer_cmd = $RUST_RACER_PATH . '/target/release/racer'
+  endif
+
+  " 指定しない場合, pluginに指定されたpathから探す
+  let $RUST_SRC_PATH = $RUST_SRC_PATH
+
+
+  "----------------
+  " vim-go
+  "
+
+  " syntax highlighting
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_interfaces = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
 endif
-
-" If there are some packages which has not installed yet,
-" try to install
-if dein#check_install()
-  call dein#install()
-endif
-
-filetype plugin indent on
-
-
-"----------------
-" EditorConfig
-"
-if s:isWin
-  let g:EditorConfig_exec_path = $HOME . '/bin/EditorConfig/bin/editorconfig.exe'
-endif
-
-
-"----------------
-" zencoding.vim
-"
-
-" インデントの調節
-let g:user_emmet_settings = { 'indentation':'  ' }
-
-
-"----------------
-" neocomplete
-"
-
-if s:canUseLua
-  " neocomplete を起動時に有効化する
-  "let g:neocomplete#enable_at_startup = 1
-
-  " smartcase 機能を有効化する
-  let g:neocomplete#enable_smart_case = 1
-endif
-
-"----------------
-" rust.vim
-"
-
-" Enable rustfmt on save.
-"let g:rustfmt_autosave = 1
-
-
-"----------------
-" Racer (Rust)
-"
-
-if s:isWin
-  let g:racer_cmd = $RUST_RACER_PATH . '\target\release\racer'
-else
-  let g:racer_cmd = $RUST_RACER_PATH . '/target/release/racer'
-endif
-
-" 指定しない場合, pluginに指定されたpathから探す
-let $RUST_SRC_PATH = $RUST_SRC_PATH
-
-
-"----------------
-" vim-go
-"
-
-" syntax highlighting
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
