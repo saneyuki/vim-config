@@ -292,11 +292,11 @@ if s:use_dein && v:version >= 704
 
   if has('vim_starting')
     " If there are no dein, download from github.
-    if &runtimepath !~# '/dein.vim'
+    if &runtimepath !~# 'dein.vim'
       if !isdirectory(s:dein_repo_dir)
-        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+        call system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir')
       endif
-      execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+      let &runtimepath = &runtimepath . "," . fnamemodify(s:dein_repo_dir, ':p')
     endif
   endif
 
