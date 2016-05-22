@@ -293,10 +293,17 @@ if dein#load_state(s:dein_dir)
   call dein#add('Shougo/dein.vim')
   call dein#add('editorconfig/editorconfig-vim')
 
-  call dein#add('Shougo/neocomplete.vim', {
-    \ 'if': has('lua'),
-    \ 'on_event': ['InsertEnter'],
-    \ 'lazy': 1})
+  if s:canUseLua && !has('nvim')
+    call dein#add('Shougo/neocomplete.vim', {
+      \ 'on_event': ['InsertEnter'],
+      \ 'lazy': 1})
+  endif
+
+  if has('nvim')
+    call dein#add('Shougo/deoplete.nvim', {
+      \ 'on_event': ['InsertEnter'],
+      \ 'lazy': 1})
+  endif
 
   call dein#add('othree/html5.vim', {
     \ 'on_ft': ['html', 'xhtml'],
