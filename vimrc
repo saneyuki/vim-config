@@ -228,25 +228,32 @@ set ffs=unix,dos,mac
 set ambiwidth=double
 
 " 挿入モード時にステータスラインの色を変更する
-let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg=Yellow cterm=None ctermfg=Black ctermbg=Yellow'
+let s:hi_insert = 'highlight StatusLine gui=None guifg=Black guibg=Yellow cterm=None ctermfg=Black ctermbg=Yellow'
+let s:slhlcmd = ''
+
 if has('syntax')
   augroup InsertHook
     autocmd!
-    autocmd InsertEnter * call s:StatusLine('Enter')
-    autocmd InsertLeave * call s:StatusLine('Leave')
+    autocmd InsertEnter * call s:statusLine('Enter')
+    autocmd InsertLeave * call s:statusLine('Leave')
+    autocmd ColorScheme * call s:initHighlight()
   augroup END
 endif
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
+
+function! s:statusLine(mode)
   if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
+    silent exec s:hi_insert
   else
     highlight clear StatusLine
     silent exec s:slhlcmd
   endif
 endfunction
-function! s:GetHighlight(hi)
+
+function! s:initHighlight()
+  silent! let s:slhlcmd = 'highlight ' . s:getHighlight('StatusLine')
+endfunction
+
+function! s:getHighlight(hi)
   redir => hl
   exec 'highlight '.a:hi
   redir END
@@ -254,6 +261,9 @@ function! s:GetHighlight(hi)
   let hl = substitute(hl, 'xxx', '', '')
   return hl
 endfunction
+
+" get initial color scheme.
+call s:initHighlight()
 
 
 "---------------------------------------------------------------------------
