@@ -1,6 +1,8 @@
 package main
 
 import (
+	"errors"
+	"flag"
 	"log"
 	"os"
 	"path/filepath"
@@ -12,15 +14,66 @@ type tuple struct {
 	Link     string
 }
 
-const (
-	vimrc  = ".vimrc"
-	gvimrc = ".gvimrc"
-)
-
-var vimfilesDir string
+var isClean bool
+var isNeoVim bool
 
 func main() {
+	flag.BoolVar(&isClean, "clean", false, "clean links which are set up by this script")
+	flag.BoolVar(&isNeoVim, "neovim", false, "running to set up for neovim")
+	flag.Parse()
+
+	if isNeoVim {
+		log.Println("running for neovim")
+		mainForNeoVim()
+	} else {
+		log.Println("running for vim")
+		mainForVim()
+	}
+}
+
+const xdgConfigHomeEnvKey = "XDG_CONFIG_HOME"
+
+func mainForNeoVim() {
+	xdgConfigHome := os.Getenv(xdgConfigHomeEnvKey)
+	if xdgConfigHome == "" {
+		log.Println("not found", "$"+xdgConfigHomeEnvKey)
+		return
+	}
+
+	vimfilesDir := tuple{"vimfiles", "nvim"}
+	vimrc := tuple{"vimrc", "nvim/init.vim"}
+
+	cwd, err := getCwd()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	vimfilesDir = *resolvePath(cwd, xdgConfigHome, &vimfilesDir)
+	vimrc = *resolvePath(cwd, xdgConfigHome, &vimrc)
+
+	log.Println(vimfilesDir.Original, vimfilesDir.Link)
+	log.Println(vimrc.Original, vimrc.Link)
+
+	rmSymlink(&vimrc)
+	rmSymlink(&vimfilesDir)
+
+	if !isClean {
+		createSymlink(&vimfilesDir)
+		createSymlink(&vimrc)
+	}
+}
+
+func mainForVim() {
 	isWin := runtime.GOOS == "windows"
+
+	home, err := getHome(isWin)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	var vimfilesDir string
 	if isWin {
 		vimfilesDir = "vimfiles"
 	} else {
@@ -28,72 +81,102 @@ func main() {
 	}
 
 	link := []tuple{
-		tuple{"vimrc", vimrc},
-		tuple{"gvimrc", gvimrc},
+		tuple{"vimrc", ".vimrc"},
+		tuple{"gvimrc", ".gvimrc"},
 		tuple{"vimfiles", vimfilesDir},
 	}
 
-	c, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-
-	cwd, err := filepath.Abs(c)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-
-	var HOME string
-	if isWin {
-		HOME = "USERPROFILE"
-	} else {
-		HOME = "HOME"
-	}
-	h := os.Getenv(HOME)
-	home, err := filepath.Abs(h)
+	cwd, err := getCwd()
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
 
 	for i, t := range link {
-		f, err := filepath.Abs(cwd + "/" + t.Original)
-		if err != nil {
-			log.Fatal(err)
-			return
-		}
-
-		l, err := filepath.Abs(home + "/" + t.Link)
-		if err != nil {
-			log.Fatal(err)
-			return
-		}
-
-		link[i] = tuple{
-			Original: f,
-			Link:     l,
-		}
+		link[i] = *resolvePath(cwd, home, &t)
 	}
 
 	for _, t := range link {
-		err = os.Remove(t.Link)
-		if err != nil {
-			log.Printf("%v", err)
-			continue
-		}
-
-		log.Printf("Remove: %v", t.Link)
+		rmSymlink(&t)
 	}
 
-	for _, t := range link {
-		err = os.Symlink(t.Original, t.Link)
-		if err != nil {
-			log.Printf("%v", err)
-			continue
+	if !isClean {
+		for _, t := range link {
+			createSymlink(&t)
 		}
-
-		log.Printf("Create symlink: %v -> %v", t.Link, t.Original)
 	}
+}
+
+func getCwd() (string, error) {
+	c, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+		return "", err
+	}
+
+	cwd, err := filepath.Abs(c)
+	if err != nil {
+		log.Fatal(err)
+		return "", err
+	}
+
+	return cwd, nil
+}
+
+func getHome(isWin bool) (string, error) {
+	var HomeKey string
+	if isWin {
+		HomeKey = "USERPROFILE"
+	} else {
+		HomeKey = "HOME"
+	}
+
+	h := os.Getenv(HomeKey)
+	home, err := filepath.Abs(h)
+	if home == "" {
+		err = errors.New("not found $" + HomeKey)
+	}
+
+	return home, err
+}
+
+func resolvePath(cwd string, home string, t *tuple) *tuple {
+	f, err := filepath.Abs(cwd + "/" + t.Original)
+	if err != nil {
+		log.Fatal(err)
+		return nil
+	}
+
+	l, err := filepath.Abs(home + "/" + t.Link)
+	if err != nil {
+		log.Fatal(err)
+		return nil
+	}
+
+	return &tuple{
+		Original: f,
+		Link:     l,
+	}
+}
+
+func rmSymlink(t *tuple) bool {
+	err := os.Remove(t.Link)
+	if err != nil {
+		log.Printf("%v", err)
+		return false
+	}
+
+	log.Printf("Remove: %v", t.Link)
+	return true
+}
+
+func createSymlink(t *tuple) bool {
+	err := os.Symlink(t.Original, t.Link)
+	if err != nil {
+		log.Printf("Error: %v", err)
+		return false
+	}
+
+	log.Printf("Create symlink (link -> src): %v -> %v", t.Link, t.Original)
+	return true
 }

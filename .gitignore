@@ -1,5 +1,8 @@
 # dein.vim
 vimfiles/dein/
 
+# symlink for neovim
+init.vim
+
 # .netrwhist
 .netrwhist
