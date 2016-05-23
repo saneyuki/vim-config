@@ -276,6 +276,7 @@ let s:use_dein = 1
 if s:use_dein && v:version >= 704
 
   let s:canUseLua = has('lua')
+  let s:isNeoVim = has('nvim')
   let s:isWin = has('win32') || has('win64')
   let s:rc_dir = s:isWin ?
     \ expand('~/vimfiles') :
@@ -308,13 +309,13 @@ if s:use_dein && v:version >= 704
     call dein#add('Shougo/dein.vim')
     call dein#add('editorconfig/editorconfig-vim')
 
-    if s:canUseLua && !has('nvim')
+    if s:canUseLua && !s:isNeoVim
       call dein#add('Shougo/neocomplete.vim', {
         \ 'on_event': ['InsertEnter'],
         \ 'lazy': 1})
     endif
 
-    if has('nvim')
+    if s:isNeoVim
       call dein#add('Shougo/deoplete.nvim', {
         \ 'on_event': ['InsertEnter'],
         \ 'lazy': 1})
@@ -381,6 +382,19 @@ if s:use_dein && v:version >= 704
     " smartcase 機能を有効化する
     let g:neocomplete#enable_smart_case = 1
   endif
+
+  "----------------
+  " deoplete
+  "
+
+  if s:isNeoVim
+    " deoplete を起動時に有効化する
+    "let g:deoplete#enable_at_startup = 1
+
+    " smartcase 機能を有効化する
+    let g:deoplete#enable_smart_case = 1
+  endif
+
 
   "----------------
   " rust.vim
