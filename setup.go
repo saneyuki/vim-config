@@ -7,30 +7,30 @@ import (
 	"runtime"
 )
 
-type Tuple struct {
+type tuple struct {
 	Original string
 	Link     string
 }
 
 const (
-	VIMRC  = ".vimrc"
-	GVIMRC = ".gvimrc"
+	vimrc  = ".vimrc"
+	gvimrc = ".gvimrc"
 )
 
-var VIMFILES string
+var vimfilesDir string
 
 func main() {
 	isWin := runtime.GOOS == "windows"
 	if isWin {
-		VIMFILES = "vimfiles"
+		vimfilesDir = "vimfiles"
 	} else {
-		VIMFILES = ".vim"
+		vimfilesDir = ".vim"
 	}
 
-	link := []Tuple{
-		Tuple{"vimrc", VIMRC},
-		Tuple{"gvimrc", GVIMRC},
-		Tuple{"vimfiles", VIMFILES},
+	link := []tuple{
+		tuple{"vimrc", vimrc},
+		tuple{"gvimrc", gvimrc},
+		tuple{"vimfiles", vimfilesDir},
 	}
 
 	c, err := os.Getwd()
@@ -71,7 +71,7 @@ func main() {
 			return
 		}
 
-		link[i] = Tuple{
+		link[i] = tuple{
 			Original: f,
 			Link:     l,
 		}
@@ -80,7 +80,7 @@ func main() {
 	for _, t := range link {
 		err = os.Remove(t.Link)
 		if err != nil {
-			log.Printf("", err)
+			log.Printf("%v", err)
 			continue
 		}
 
@@ -90,7 +90,7 @@ func main() {
 	for _, t := range link {
 		err = os.Symlink(t.Original, t.Link)
 		if err != nil {
-			log.Printf("", err)
+			log.Printf("%v", err)
 			continue
 		}
 
