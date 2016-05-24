@@ -31,14 +31,8 @@ func main() {
 	}
 }
 
-const xdgConfigHomeEnvKey = "XDG_CONFIG_HOME"
-
 func mainForNeoVim() {
-	xdgConfigHome := os.Getenv(xdgConfigHomeEnvKey)
-	if xdgConfigHome == "" {
-		log.Println("not found", "$"+xdgConfigHomeEnvKey)
-		return
-	}
+	xdgConfigHome := getXdgConfigHome()
 
 	vimfilesDir := tuple{"vimfiles", "nvim"}
 	vimrc := tuple{"vimrc", "nvim/init.vim"}
@@ -121,6 +115,37 @@ func getCwd() (string, error) {
 	}
 
 	return cwd, nil
+}
+
+const xdgConfigHomeEnvKey = "XDG_CONFIG_HOME"
+
+func getXdgConfigHome() string {
+	v := os.Getenv(xdgConfigHomeEnvKey)
+	if v == "" {
+		log.Println("try to use `~/.config` as $XDG_CONFIG_HOME")
+
+		isWin := runtime.GOOS == "windows"
+		home, err := getHome(isWin)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		l, err := filepath.Abs(home + "/.config")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		v = l
+	}
+
+	path, err := filepath.Abs(v)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Printf(path)
+
+	return path
 }
 
 func getHome(isWin bool) (string, error) {
