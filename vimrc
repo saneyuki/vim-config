@@ -427,7 +427,7 @@ if s:use_dein && v:version >= 704
   "----------------
   " Racer (Rust)
   "
-  let g:racer_cmd = expand($RUST_RACER_PATH . '/target/release/racer')
+  "let g:racer_cmd = expand($RUST_RACER_PATH . '/target/release/racer')
 
   " 指定しない場合, pluginに指定されたpathから探す
   let $RUST_SRC_PATH = $RUST_SRC_PATH
