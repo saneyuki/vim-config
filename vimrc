@@ -312,6 +312,9 @@ if s:use_dein && v:version >= 704
     call dein#add('hail2u/vim-css3-syntax', {
       \ 'on_ft': ['css', 'scss'],
       \ 'lazy': 1})
+    call dein#add('pangloss/vim-javascript', {
+      \ 'on_ft': ['javascript'],
+      \ 'lazy': 1})
     call dein#add('leafgarland/typescript-vim', {
       \ 'on_ft': ['typescript'],
       \ 'lazy': 1})
