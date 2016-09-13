@@ -226,45 +226,6 @@ set laststatus=2
 
 set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l,%c%V%8P
 
-" 挿入モード時にステータスラインの色を変更する
-let s:hi_insert = 'highlight StatusLine gui=None guifg=Black guibg=Yellow cterm=None ctermfg=Black ctermbg=Yellow'
-let s:slhlcmd = ''
-
-if has('syntax')
-  augroup InsertHook
-    autocmd!
-    autocmd InsertEnter * call s:statusLine('Enter')
-    autocmd InsertLeave * call s:statusLine('Leave')
-    autocmd ColorScheme * call s:initHighlight()
-  augroup END
-endif
-
-function! s:statusLine(mode)
-  if a:mode == 'Enter'
-    silent exec s:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
-  endif
-endfunction
-
-function! s:initHighlight()
-  silent! let s:slhlcmd = 'highlight ' . s:getHighlight('StatusLine')
-endfunction
-
-function! s:getHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
-endfunction
-
-" get initial color scheme.
-call s:initHighlight()
-
-
 "---------------------------------------------------------------------------
 " Charset, Line ending
 "
