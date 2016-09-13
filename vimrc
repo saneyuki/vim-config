@@ -6,7 +6,8 @@ scriptencoding utf-8
 
 " vim
 if !has('nvim')
-  set nocompatible
+  set nocompatible " This is used for ~v7.
+  source $VIMRUNTIME/defaults.vim " defaults.vim call `set nocompatible`.
 endif
 
 "---------------------------------------------------------------------------
