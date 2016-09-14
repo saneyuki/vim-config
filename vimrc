@@ -183,6 +183,9 @@ set number
 " 画面幅で折り返さない
 set nowrap
 
+" 折り返した分もインデントする
+set breakindent
+
 " 自動で折り返しする1行あたりのテキスト量 (0で無効化)
 " ( ref. http://vim-users.jp/2011/05/hack217/ )
 "set textwidth=0
