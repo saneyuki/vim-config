@@ -22,4 +22,8 @@ augroup vimrc_filetype
   autocmd FileType go
     \ setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
 
+  " git config file.
+  autocmd FileType gitconfig
+    \ setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
+
 augroup END
