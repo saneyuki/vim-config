@@ -9,94 +9,107 @@ import (
 	"runtime"
 )
 
-type tuple struct {
-	Original string
-	Link     string
+type pathPair struct {
+	Source string
+	Link   string
+}
+
+type config struct {
+	Source      string
+	Link        string
+	IsXdgConfig bool
 }
 
 var isClean bool
+var isDryRun bool
 var isNeoVim bool
 
 func main() {
 	flag.BoolVar(&isClean, "clean", false, "clean links which are set up by this script")
+	flag.BoolVar(&isDryRun, "dry-run", false, "dry-run")
 	flag.BoolVar(&isNeoVim, "neovim", false, "running to set up for neovim")
 	flag.Parse()
 
+	var list []config
 	if isNeoVim {
-		log.Println("running for neovim")
-		mainForNeoVim()
+		isXdgConfig := true
+		list = []config{
+			config{"vimrc", "nvim/init.vim", isXdgConfig},
+			config{"vimfiles", "nvim", isXdgConfig},
+		}
 	} else {
-		log.Println("running for vim")
-		mainForVim()
+		isWin := runtime.GOOS == "windows"
+		var vimfilesDir string
+		if isWin {
+			vimfilesDir = "vimfiles"
+		} else {
+			vimfilesDir = ".vim"
+		}
+
+		list = []config{
+			config{"vimfiles", vimfilesDir, false},
+			config{"vimrc", ".vimrc", false},
+			config{"gvimrc", ".gvimrc", false},
+		}
 	}
+
+	run(list)
 }
 
-func mainForNeoVim() {
+func run(manifest []config) {
+	if isDryRun {
+		log.Println("### This is running as dry-run mode. This will not cause any actual change. ###")
+	}
+
+	cwd, err := getCwd()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	home, err := getHome()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
 	xdgConfigHome := getXdgConfigHome()
 
-	vimfilesDir := tuple{"vimfiles", "nvim"}
-	vimrc := tuple{"vimrc", "nvim/init.vim"}
+	log.Printf("$HOME: %v", home)
+	log.Printf("$XDG_CONFIG_HOME: %v", xdgConfigHome)
 
-	cwd, err := getCwd()
-	if err != nil {
-		log.Fatal(err)
-		return
+	list := make([]pathPair, len(manifest))
+
+	for i, v := range manifest {
+		var path pathPair
+		if v.IsXdgConfig {
+			path = *resolvePath(cwd, xdgConfigHome, &v)
+		} else {
+			path = *resolvePath(cwd, home, &v)
+		}
+		list[i] = path
 	}
 
-	vimfilesDir = *resolvePath(cwd, xdgConfigHome, &vimfilesDir)
-	vimrc = *resolvePath(cwd, xdgConfigHome, &vimrc)
-
-	log.Println(vimfilesDir.Original, vimfilesDir.Link)
-	log.Println(vimrc.Original, vimrc.Link)
-
-	rmSymlink(&vimrc)
-	rmSymlink(&vimfilesDir)
-
-	if !isClean {
-		createSymlink(&vimfilesDir)
-		createSymlink(&vimrc)
-	}
-}
-
-func mainForVim() {
-	isWin := runtime.GOOS == "windows"
-
-	home, err := getHome(isWin)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-
-	var vimfilesDir string
-	if isWin {
-		vimfilesDir = "vimfiles"
-	} else {
-		vimfilesDir = ".vim"
-	}
-
-	link := []tuple{
-		tuple{"vimrc", ".vimrc"},
-		tuple{"gvimrc", ".gvimrc"},
-		tuple{"vimfiles", vimfilesDir},
-	}
-
-	cwd, err := getCwd()
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-
-	for i, t := range link {
-		link[i] = *resolvePath(cwd, home, &t)
-	}
-
-	for _, t := range link {
-		rmSymlink(&t)
+	for _, path := range list {
+		rmSymlink(&path, isDryRun)
 	}
 
 	if !isClean {
-		for _, t := range link {
-			createSymlink(&t)
+		// We need reverse traversal to handle the following case:
+		//
+		// ```
+		// - bar/
+		//   - foo.txt
+		// ```
+		//
+		// If the manifest is `["foo.txt", "bar"]`,
+		// then, the removing order is foo.txt -> bar.
+		// But if we symlink with the order which is same with removing,
+		// we might not be able to link to foo.txt because there has not been linked to bar yet.
+		l := len(list)
+		for i := range list {
+			path := list[(l-1)-i]
+			createSymlink(&path, isDryRun)
 		}
 	}
 }
@@ -124,8 +137,7 @@ func getXdgConfigHome() string {
 	if v == "" {
 		log.Println("try to use `~/.config` as $XDG_CONFIG_HOME")
 
-		isWin := runtime.GOOS == "windows"
-		home, err := getHome(isWin)
+		home, err := getHome()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -143,12 +155,11 @@ func getXdgConfigHome() string {
 		log.Fatal(err)
 	}
 
-	log.Printf(path)
-
 	return path
 }
 
-func getHome(isWin bool) (string, error) {
+func getHome() (string, error) {
+	isWin := runtime.GOOS == "windows"
 	var HomeKey string
 	if isWin {
 		HomeKey = "USERPROFILE"
@@ -165,8 +176,8 @@ func getHome(isWin bool) (string, error) {
 	return home, err
 }
 
-func resolvePath(cwd string, home string, t *tuple) *tuple {
-	f, err := filepath.Abs(cwd + "/" + t.Original)
+func resolvePath(cwd string, home string, t *config) *pathPair {
+	f, err := filepath.Abs(cwd + "/" + t.Source)
 	if err != nil {
 		log.Fatal(err)
 		return nil
@@ -178,30 +189,32 @@ func resolvePath(cwd string, home string, t *tuple) *tuple {
 		return nil
 	}
 
-	return &tuple{
-		Original: f,
-		Link:     l,
+	return &pathPair{
+		Source: f,
+		Link:   l,
 	}
 }
 
-func rmSymlink(t *tuple) bool {
-	err := os.Remove(t.Link)
-	if err != nil {
-		log.Printf("%v", err)
-		return false
+func rmSymlink(t *pathPair, isDryRun bool) bool {
+	if !isDryRun {
+		if err := os.Remove(t.Link); err != nil {
+			log.Printf("Error: %v", err)
+			return false
+		}
 	}
 
 	log.Printf("Remove: %v", t.Link)
 	return true
 }
 
-func createSymlink(t *tuple) bool {
-	err := os.Symlink(t.Original, t.Link)
-	if err != nil {
-		log.Printf("Error: %v", err)
-		return false
+func createSymlink(t *pathPair, isDryRun bool) bool {
+	if !isDryRun {
+		if err := os.Symlink(t.Source, t.Link); err != nil {
+			log.Printf("Error: %v", err)
+			return false
+		}
 	}
 
-	log.Printf("Create symlink (link -> src): %v -> %v", t.Link, t.Original)
+	log.Printf("Create symlink (link -> source): %v -> %v", t.Link, t.Source)
 	return true
 }
