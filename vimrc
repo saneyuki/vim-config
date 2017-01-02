@@ -350,7 +350,7 @@ if s:use_dein && v:version >= 704
   " EditorConfig
 
   if s:isWin
-    let g:EditorConfig_exec_path = $HOME . '/bin/EditorConfig/bin/editorconfig.exe'
+    let g:EditorConfig_exec_path = $HOME . '/local/EditorConfig/bin/editorconfig.exe'
   endif
 
 
