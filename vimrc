@@ -312,9 +312,6 @@ if s:use_dein && v:version >= 704
     call dein#add('othree/html5.vim', {
       \ 'on_ft': ['html', 'xhtml'],
       \ 'lazy': 1})
-    call dein#add('mattn/emmet-vim', {
-      \ 'on_ft': ['html', 'xhtml'],
-      \ 'lazy': 1})
     call dein#add('hail2u/vim-css3-syntax', {
       \ 'on_ft': ['css', 'scss'],
       \ 'lazy': 1})
@@ -352,15 +349,6 @@ if s:use_dein && v:version >= 704
   if s:isWin
     let g:EditorConfig_exec_path = $HOME . '/local/EditorConfig/bin/editorconfig.exe'
   endif
-
-
-  "----------------
-  " zencoding.vim
-  "
-
-  " インデントの調節
-  let g:user_emmet_settings = { 'indentation':'  ' }
-
 
   "----------------
   " neocomplete
