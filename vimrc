@@ -327,9 +327,6 @@ if s:use_dein && v:version >= 704
     call dein#add('rust-lang/rust.vim', {
       \ 'on_ft': ['rust'],
       \ 'lazy': 1})
-    call dein#add('racer-rust/vim-racer', {
-      \ 'on_ft': ['rust'],
-      \ 'lazy': 1})
 
     call dein#end()
     call dein#save_state()
@@ -381,15 +378,6 @@ if s:use_dein && v:version >= 704
 
   " Enable rustfmt on save.
   "let g:rustfmt_autosave = 1
-
-
-  "----------------
-  " Racer (Rust)
-  "
-  "let g:racer_cmd = expand($RUST_RACER_PATH . '/target/release/racer')
-
-  " 指定しない場合, pluginに指定されたpathから探す
-  let $RUST_SRC_PATH = $RUST_SRC_PATH
 
 
   "----------------
