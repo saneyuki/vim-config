@@ -11,5 +11,7 @@ augroup vimrc_filetype
   " git config file.
   autocmd FileType gitconfig
     \ setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
+  autocmd FileType gitcommit
+    \ setlocal tabstop=4 softtabstop=0 shiftwidth=4
 
 augroup END
