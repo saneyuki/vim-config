@@ -223,6 +223,9 @@ augroup END
 " 矩形選択で自由に移動する
 set virtualedit=block
 
+" Disable 'add eol if there is no eol'.
+set nofixeol
+
 
 "---------------------------------------------------------------------------
 " StatusLine
@@ -261,7 +264,7 @@ set ambiwidth=double
 "
 
 let s:use_dein = 1
-if s:use_dein && v:version >= 704
+if s:use_dein && v:version >= 800
 
   let s:canUseLua = has('lua')
   let s:isNeoVim = has('nvim')
