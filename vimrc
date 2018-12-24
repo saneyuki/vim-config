@@ -129,8 +129,7 @@ set wildmode=longest:full
 "---------------------------------------------------------------------------
 " Terminal
 "
-if s:is_neo_vim
-
+if s:is_neo_vim || v:version >= 801
   " keymap <Esc> to exit terminal mode
   tnoremap <Esc> <C-\><C-n>
 
@@ -143,7 +142,6 @@ if s:is_neo_vim
   nnoremap <A-j> <C-w>j
   nnoremap <A-k> <C-w>k
   nnoremap <A-l> <C-w>l
-
 endif
 
 "---------------------------------------------------------------------------
