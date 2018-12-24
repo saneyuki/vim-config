@@ -295,6 +295,9 @@ if s:use_vim_plug && v:version >= 800
 
     " https://github.com/machakann/vim-highlightedyank
     Plug 'machakann/vim-highlightedyank'
+
+    " https://github.com/junegunn/vim-peekaboo
+    " Plug 'junegunn/vim-peekaboo'
   call plug#end()
 
 
