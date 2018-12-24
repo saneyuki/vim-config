@@ -24,8 +24,7 @@ endif
 "
 
 " カラースキームの設定
-" 256色出せる端末を使っている環境だけ有効にする
-if s:isMac
+if !s:use_vim_plug
   colorscheme desert256s
 endif
 
