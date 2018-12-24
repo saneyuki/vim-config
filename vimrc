@@ -131,18 +131,6 @@ set wildmode=longest:full
 " Terminal
 "
 if s:is_neo_vim || v:version >= 801
-  " keymap <Esc> to exit terminal mode
-  tnoremap <Esc> <C-\><C-n>
-
-  " keymap to switch to a window
-  tnoremap <A-h> <C-\><C-n><C-w>h
-  tnoremap <A-j> <C-\><C-n><C-w>j
-  tnoremap <A-k> <C-\><C-n><C-w>k
-  tnoremap <A-l> <C-\><C-n><C-w>l
-  nnoremap <A-h> <C-w>h
-  nnoremap <A-j> <C-w>j
-  nnoremap <A-k> <C-w>k
-  nnoremap <A-l> <C-w>l
 endif
 
 "---------------------------------------------------------------------------
