@@ -305,10 +305,10 @@ if s:use_vim_plug && v:version >= 800
 
 
   "----------------
-  " Override Color Scheme
+  " gruvbox
   "
-  colorscheme gruvbox
   set background=dark
+  colorscheme gruvbox
 
 
   "----------------
