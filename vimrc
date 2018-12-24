@@ -281,10 +281,10 @@ if s:use_dein && v:version >= 800
   call plug#begin(s:vim_plug_dir)
 
     Plug 'editorconfig/editorconfig-vim'
-    Plug 'othree/html5.vim', { 'for': ['html', 'xhtml'] }
-    Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+"    Plug 'othree/html5.vim', { 'for': ['html', 'xhtml'] }
+"    Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+"    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+"    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
     Plug 'fatih/vim-go', { 'for': 'go' }
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
