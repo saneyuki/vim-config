@@ -1,3 +1,5 @@
+VIM_PLUG_URL := https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 all: help
 
 help:
@@ -14,5 +16,8 @@ run: ## Create symlinks
 dryrun: ## Do 'make run' as dry run mode
 	go run setup.go -dry-run
 
-install_vim_plug: ## Install vim-plug https://github.com/junegunn/vim-plug
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+install_vim_plug: ## Install vim-plug
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(VIM_PLUG_URL)
+
+install_vim_plug_for_neovim: ## Install vim-plug for neovim
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs $(VIM_PLUG_URL)
