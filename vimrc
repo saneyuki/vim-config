@@ -285,7 +285,7 @@ if s:use_dein && v:version >= 800
 "    Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 "    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 "    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-    Plug 'fatih/vim-go', { 'for': 'go' }
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries', }
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
   call plug#end()
