@@ -290,6 +290,7 @@ if s:use_vim_plug && v:version >= 800
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 "    Plug 'kshenoy/vim-signature'
+"    Plug 'machakann/vim-highlightedyank'
 
   call plug#end()
 
