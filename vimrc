@@ -298,6 +298,8 @@ if s:use_vim_plug && v:version >= 800
 
     " https://github.com/junegunn/vim-peekaboo
     " Plug 'junegunn/vim-peekaboo'
+
+    " TODO: https://github.com/Valloric/YouCompleteMe
   call plug#end()
 
 
