@@ -290,6 +290,15 @@ if s:use_vim_plug && v:version >= 800
     " Plug 'mbbill/undotree'
 
     " TODO: https://github.com/Valloric/YouCompleteMe
+
+    " https://github.com/junegunn/fzf.vim
+    let s:use_fzf_vim = 0
+    if s:use_fzf_vim && isdirectory('/usr/local/opt/fzf')
+      " For installing fzf via homebrew
+      Plug '/usr/local/opt/fzf'
+      Plug 'junegunn/fzf.vim'
+    endif
+
   call plug#end()
 
 
@@ -333,7 +342,6 @@ if s:use_vim_plug && v:version >= 800
   "let s:clang_include_fixer_py = expand(s:clang_tools_script_dir . '/clang-include-fixer.py')
   "execute \"noremap <leader>cf :pyfile \" . s:clang_include_fixer_py . \"<cr>\"
 
-
   "----------------
   " vim-go
   "
@@ -347,4 +355,25 @@ if s:use_vim_plug && v:version >= 800
   let g:go_highlight_extra_types = 1
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_generate_tags = 1
+
+
+  "---------------
+  " fzf
+
+  " Customize fzf colors to match your color scheme
+  let g:fzf_colors =
+        \ {
+        \ 'fg':      ['fg', 'Normal'],
+        \ 'bg':      ['bg', 'Normal'],
+        \ 'hl':      ['fg', 'Comment'],
+        \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+        \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+        \ 'hl+':     ['fg', 'Statement'],
+        \ 'info':    ['fg', 'PreProc'],
+        \ 'prompt':  ['fg', 'Conditional'],
+        \ 'pointer': ['fg', 'Exception'],
+        \ 'marker':  ['fg', 'Keyword'],
+        \ 'spinner': ['fg', 'Label'],
+        \ 'header':  ['fg', 'Comment']
+        \ }
 endif
