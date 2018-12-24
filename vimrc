@@ -263,8 +263,8 @@ set ambiwidth=double
 " Plugins
 "
 
-let s:use_dein = 1
-if s:use_dein && v:version >= 800
+let s:use_vim_plug = 1
+if s:use_vim_plug && v:version >= 800
 
   let s:canUseLua = has('lua')
   let s:isNeoVim = has('nvim')
