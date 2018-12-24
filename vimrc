@@ -279,6 +279,9 @@ if s:use_vim_plug && v:version >= 800
   "
   let s:vim_plug_dir = expand(s:rc_dir . '/plugged')
   call plug#begin(s:vim_plug_dir)
+    " Color Scheme
+    Plug 'morhetz/gruvbox'
+    Plug 'sickill/vim-monokai'
 
     Plug 'editorconfig/editorconfig-vim'
 
@@ -293,8 +296,13 @@ if s:use_vim_plug && v:version >= 800
 
     " https://github.com/machakann/vim-highlightedyank
     Plug 'machakann/vim-highlightedyank'
-
   call plug#end()
+
+
+  "----------------
+  " Color Scheme
+  "
+  colorscheme monokai
 
   "----------------
   " EditorConfig
