@@ -268,6 +268,7 @@ if s:use_dein && v:version >= 800
 
   let s:canUseLua = has('lua')
   let s:isNeoVim = has('nvim')
+  let s:hasPython3 = has('python3')
   let s:isWin = has('win32') || has('win64')
   let s:rc_dir = s:isWin ?
     \ expand('~/vimfiles') :
@@ -280,19 +281,6 @@ if s:use_dein && v:version >= 800
   call plug#begin(s:vim_plug_dir)
 
     Plug 'editorconfig/editorconfig-vim'
-
-"    if s:canUseLua && !s:isNeoVim
-"      call dein#add('Shougo/neocomplete.vim', {
-"        \ 'on_event': ['InsertEnter'],
-"        \ 'lazy': 1})
-"    endif
-"
-"    if s:isNeoVim
-"      call dein#add('Shougo/deoplete.nvim', {
-"        \ 'on_event': ['InsertEnter'],
-"        \ 'lazy': 1})
-"    endif
-
     Plug 'othree/html5.vim', { 'for': ['html', 'xhtml'] }
     Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
     Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -307,30 +295,6 @@ if s:use_dein && v:version >= 800
 
   if s:isWin
     let g:EditorConfig_exec_path = $HOME . '/local/EditorConfig/bin/editorconfig.exe'
-  endif
-
-  "----------------
-  " neocomplete
-  "
-
-  if s:canUseLua
-    " neocomplete を起動時に有効化する
-    "let g:neocomplete#enable_at_startup = 1
-
-    " smartcase 機能を有効化する
-    let g:neocomplete#enable_smart_case = 1
-  endif
-
-  "----------------
-  " deoplete
-  "
-
-  if s:isNeoVim
-    " deoplete を起動時に有効化する
-    "let g:deoplete#enable_at_startup = 1
-
-    " smartcase 機能を有効化する
-    let g:deoplete#enable_smart_case = 1
   endif
 
 
