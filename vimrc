@@ -1,11 +1,17 @@
 scriptencoding utf-8
 
+let s:use_vim_plug = 1
+let s:isNeoVim = has('nvim')
+let s:isWin = has('win32') || has('win64')
+let s:isMac = has('mac')
+
+
 "---------------------------------------------------------------------------
 " .vimrc
 "---------------------------------------------------------------------------
 
 " vim
-if !has('nvim')
+if !s:isNeoVim
   if v:version < 800
     set nocompatible " This is used for ~v7.
   else
@@ -19,7 +25,7 @@ endif
 
 " カラースキームの設定
 " 256色出せる端末を使っている環境だけ有効にする
-if has('mac')
+if s:isMac
   colorscheme desert256s
 endif
 
@@ -124,7 +130,7 @@ set wildmode=longest:full
 "---------------------------------------------------------------------------
 " Terminal
 "
-if has('nvim')
+if s:isNeoVim
 
   " keymap <Esc> to exit terminal mode
   tnoremap <Esc> <C-\><C-n>
@@ -240,7 +246,7 @@ set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l
 "
 
 "端末への出力に使用されるエンコーディング
-if has('win32') || has('win64')
+if s:isWin
   set termencoding=cp932
 else
   set termencoding=utf-8
@@ -262,14 +268,9 @@ set ambiwidth=double
 "---------------------------------------------------------------------------
 " Plugins
 "
-
-let s:use_vim_plug = 1
 if s:use_vim_plug && v:version >= 800
-
   let s:canUseLua = has('lua')
-  let s:isNeoVim = has('nvim')
   let s:hasPython3 = has('python3')
-  let s:isWin = has('win32') || has('win64')
   let s:rc_dir = s:isWin ?
     \ expand('~/vimfiles') :
     \ expand('~/.vim')
