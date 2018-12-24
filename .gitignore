@@ -1,6 +1,10 @@
 # dein.vim
 vimfiles/dein/
 
+# https://github.com/junegunn/vim-plug
+vimfiles/autoload/
+vimfiles/plugged/
+
 # symlink for neovim
 init.vim
 

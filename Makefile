@@ -13,3 +13,6 @@ run: ## Create symlinks
 
 dryrun: ## Do 'make run' as dry run mode
 	go run setup.go -dry-run
+
+install_vim_plug: ## Install vim-plug https://github.com/junegunn/vim-plug
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

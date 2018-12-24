@@ -268,110 +268,33 @@ if s:use_dein && v:version >= 800
 
   let s:canUseLua = has('lua')
   let s:isNeoVim = has('nvim')
+  let s:hasPython3 = has('python3')
   let s:isWin = has('win32') || has('win64')
   let s:rc_dir = s:isWin ?
     \ expand('~/vimfiles') :
     \ expand('~/.vim')
 
   "----------------
-  " dein.vim
+  " [vim-plug](https://github.com/junegunn/vim-plug)
   "
+  let s:vim_plug_dir = expand(s:rc_dir . '/plugged')
+  call plug#begin(s:vim_plug_dir)
 
-  filetype off
+    Plug 'editorconfig/editorconfig-vim'
+"    Plug 'othree/html5.vim', { 'for': ['html', 'xhtml'] }
+"    Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+"    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+"    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries', }
+    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
-  let s:dein_dir = expand(s:rc_dir . '/dein')
-
-  " dein source file
-  let s:dein_repo_dir = expand(s:dein_dir . '/repos/github.com/Shougo/dein.vim')
-
-  if has('vim_starting')
-    " If there are no dein, download from github.
-    if &runtimepath !~# 'dein.vim'
-      if !isdirectory(s:dein_repo_dir)
-        call system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir)
-      endif
-      let &runtimepath = &runtimepath . "," . fnamemodify(s:dein_repo_dir, ':p')
-    endif
-  endif
-
-  if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-
-    call dein#add('Shougo/dein.vim')
-    call dein#add('editorconfig/editorconfig-vim')
-
-    if s:canUseLua && !s:isNeoVim
-      call dein#add('Shougo/neocomplete.vim', {
-        \ 'on_event': ['InsertEnter'],
-        \ 'lazy': 1})
-    endif
-
-    if s:isNeoVim
-      call dein#add('Shougo/deoplete.nvim', {
-        \ 'on_event': ['InsertEnter'],
-        \ 'lazy': 1})
-    endif
-
-"    call dein#add('othree/html5.vim', {
-"      \ 'on_ft': ['html', 'xhtml'],
-"      \ 'lazy': 1})
-"    call dein#add('hail2u/vim-css3-syntax', {
-"      \ 'on_ft': ['css', 'scss'],
-"      \ 'lazy': 1})
-"    call dein#add('pangloss/vim-javascript', {
-"      \ 'on_ft': ['javascript'],
-"      \ 'lazy': 1})
-"    call dein#add('leafgarland/typescript-vim', {
-"      \ 'on_ft': ['typescript'],
-"      \ 'lazy': 1})
-    call dein#add('fatih/vim-go', {
-      \ 'on_ft': ['go'],
-      \ 'lazy': 1})
-    call dein#add('rust-lang/rust.vim', {
-      \ 'on_ft': ['rust'],
-      \ 'lazy': 1})
-
-    call dein#end()
-    call dein#save_state()
-  endif
-
-  " If there are some packages which has not installed yet,
-  " try to install
-  if dein#check_install()
-    call dein#install()
-  endif
-
-  filetype plugin indent on
+  call plug#end()
 
   "----------------
   " EditorConfig
 
   if s:isWin
     let g:EditorConfig_exec_path = $HOME . '/local/EditorConfig/bin/editorconfig.exe'
-  endif
-
-  "----------------
-  " neocomplete
-  "
-
-  if s:canUseLua
-    " neocomplete を起動時に有効化する
-    "let g:neocomplete#enable_at_startup = 1
-
-    " smartcase 機能を有効化する
-    let g:neocomplete#enable_smart_case = 1
-  endif
-
-  "----------------
-  " deoplete
-  "
-
-  if s:isNeoVim
-    " deoplete を起動時に有効化する
-    "let g:deoplete#enable_at_startup = 1
-
-    " smartcase 機能を有効化する
-    let g:deoplete#enable_smart_case = 1
   endif
 
 
@@ -406,10 +329,12 @@ if s:use_dein && v:version >= 800
   "
 
   " syntax highlighting
+  let g:go_highlight_types = 1
+  let g:go_highlight_fields = 1
   let g:go_highlight_functions = 1
-  let g:go_highlight_methods = 1
-  let g:go_highlight_structs = 1
-  let g:go_highlight_interfaces = 1
+  let g:go_highlight_function_calls = 1
   let g:go_highlight_operators = 1
+  let g:go_highlight_extra_types = 1
   let g:go_highlight_build_constraints = 1
+  let g:go_highlight_generate_tags = 1
 endif
