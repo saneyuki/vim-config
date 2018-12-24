@@ -1,9 +1,9 @@
 scriptencoding utf-8
 
 let s:use_vim_plug = 1
-let s:isNeoVim = has('nvim')
-let s:isWin = has('win32') || has('win64')
-let s:isMac = has('mac')
+let s:is_neo_vim = has('nvim')
+let s:is_windows = has('win32') || has('win64')
+let s:is_macos = has('mac')
 
 
 "---------------------------------------------------------------------------
@@ -11,7 +11,7 @@ let s:isMac = has('mac')
 "---------------------------------------------------------------------------
 
 " vim
-if !s:isNeoVim
+if !s:is_neo_vim
   if v:version < 800
     set nocompatible " This is used for ~v7.
   else
@@ -129,7 +129,7 @@ set wildmode=longest:full
 "---------------------------------------------------------------------------
 " Terminal
 "
-if s:isNeoVim
+if s:is_neo_vim
 
   " keymap <Esc> to exit terminal mode
   tnoremap <Esc> <C-\><C-n>
@@ -245,7 +245,7 @@ set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l
 "
 
 "端末への出力に使用されるエンコーディング
-if s:isWin
+if s:is_windows
   set termencoding=cp932
 else
   set termencoding=utf-8
@@ -270,7 +270,7 @@ set ambiwidth=double
 if s:use_vim_plug && v:version >= 800
   let s:canUseLua = has('lua')
   let s:hasPython3 = has('python3')
-  let s:rc_dir = s:isWin ?
+  let s:rc_dir = s:is_windows ?
     \ expand('~/vimfiles') :
     \ expand('~/.vim')
 
@@ -313,7 +313,7 @@ if s:use_vim_plug && v:version >= 800
   "----------------
   " EditorConfig
 
-  if s:isWin
+  if s:is_windows
     let g:EditorConfig_exec_path = $HOME . '/local/EditorConfig/bin/editorconfig.exe'
   endif
 
