@@ -274,74 +274,82 @@ if s:use_dein && v:version >= 800
     \ expand('~/.vim')
 
   "----------------
+  " [vim-plug](https://github.com/junegunn/vim-plug)
+  "
+  let s:vim_plug_dir = expand(s:rc_dir . '/plugged')
+  call plug#begin(s:vim_plug_dir)
+
+    Plug 'https://github.com/editorconfig/editorconfig-vim.git'
+
+  call plug#end()
+
+  "----------------
   " dein.vim
   "
-
-  filetype off
-
-  let s:dein_dir = expand(s:rc_dir . '/dein')
-
-  " dein source file
-  let s:dein_repo_dir = expand(s:dein_dir . '/repos/github.com/Shougo/dein.vim')
-
-  if has('vim_starting')
-    " If there are no dein, download from github.
-    if &runtimepath !~# 'dein.vim'
-      if !isdirectory(s:dein_repo_dir)
-        call system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir)
-      endif
-      let &runtimepath = &runtimepath . "," . fnamemodify(s:dein_repo_dir, ':p')
-    endif
-  endif
-
-  if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-
-    call dein#add('Shougo/dein.vim')
-    call dein#add('editorconfig/editorconfig-vim')
-
-    if s:canUseLua && !s:isNeoVim
-      call dein#add('Shougo/neocomplete.vim', {
-        \ 'on_event': ['InsertEnter'],
-        \ 'lazy': 1})
-    endif
-
-    if s:isNeoVim
-      call dein#add('Shougo/deoplete.nvim', {
-        \ 'on_event': ['InsertEnter'],
-        \ 'lazy': 1})
-    endif
-
-"    call dein#add('othree/html5.vim', {
-"      \ 'on_ft': ['html', 'xhtml'],
+"
+"  filetype off
+"
+"  let s:dein_dir = expand(s:rc_dir . '/dein')
+"
+"  " dein source file
+"  let s:dein_repo_dir = expand(s:dein_dir . '/repos/github.com/Shougo/dein.vim')
+"
+"  if has('vim_starting')
+"    " If there are no dein, download from github.
+"    if &runtimepath !~# 'dein.vim'
+"      if !isdirectory(s:dein_repo_dir)
+"        call system('git clone https://github.com/Shougo/dein.vim ' . s:dein_repo_dir)
+"      endif
+"      let &runtimepath = &runtimepath . "," . fnamemodify(s:dein_repo_dir, ':p')
+"    endif
+"  endif
+"
+"  if dein#load_state(s:dein_dir)
+"    call dein#begin(s:dein_dir)
+"
+"
+"    if s:canUseLua && !s:isNeoVim
+"      call dein#add('Shougo/neocomplete.vim', {
+"        \ 'on_event': ['InsertEnter'],
+"        \ 'lazy': 1})
+"    endif
+"
+"    if s:isNeoVim
+"      call dein#add('Shougo/deoplete.nvim', {
+"        \ 'on_event': ['InsertEnter'],
+"        \ 'lazy': 1})
+"    endif
+"
+""    call dein#add('othree/html5.vim', {
+""      \ 'on_ft': ['html', 'xhtml'],
+""      \ 'lazy': 1})
+""    call dein#add('hail2u/vim-css3-syntax', {
+""      \ 'on_ft': ['css', 'scss'],
+""      \ 'lazy': 1})
+""    call dein#add('pangloss/vim-javascript', {
+""      \ 'on_ft': ['javascript'],
+""      \ 'lazy': 1})
+""    call dein#add('leafgarland/typescript-vim', {
+""      \ 'on_ft': ['typescript'],
+""      \ 'lazy': 1})
+"    call dein#add('fatih/vim-go', {
+"      \ 'on_ft': ['go'],
 "      \ 'lazy': 1})
-"    call dein#add('hail2u/vim-css3-syntax', {
-"      \ 'on_ft': ['css', 'scss'],
+"    call dein#add('rust-lang/rust.vim', {
+"      \ 'on_ft': ['rust'],
 "      \ 'lazy': 1})
-"    call dein#add('pangloss/vim-javascript', {
-"      \ 'on_ft': ['javascript'],
-"      \ 'lazy': 1})
-"    call dein#add('leafgarland/typescript-vim', {
-"      \ 'on_ft': ['typescript'],
-"      \ 'lazy': 1})
-    call dein#add('fatih/vim-go', {
-      \ 'on_ft': ['go'],
-      \ 'lazy': 1})
-    call dein#add('rust-lang/rust.vim', {
-      \ 'on_ft': ['rust'],
-      \ 'lazy': 1})
-
-    call dein#end()
-    call dein#save_state()
-  endif
-
-  " If there are some packages which has not installed yet,
-  " try to install
-  if dein#check_install()
-    call dein#install()
-  endif
-
-  filetype plugin indent on
+"
+"    call dein#end()
+"    call dein#save_state()
+"  endif
+"
+"  " If there are some packages which has not installed yet,
+"  " try to install
+"  if dein#check_install()
+"    call dein#install()
+"  endif
+"
+"  filetype plugin indent on
 
   "----------------
   " EditorConfig
