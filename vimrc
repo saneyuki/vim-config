@@ -266,8 +266,8 @@ set ambiwidth=double
 " Plugins
 "
 if s:use_vim_plug && v:version >= 800
-  let s:canUseLua = has('lua')
-  let s:hasPython3 = has('python3')
+  let s:can_use_lua = has('lua')
+  let s:has_python_3 = has('python3')
   let s:rc_dir = s:is_windows ?
     \ expand('~/vimfiles') :
     \ expand('~/.vim')
