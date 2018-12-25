@@ -302,7 +302,7 @@ if s:use_vim_plug && v:version >= 800
     " TODO: https://github.com/Valloric/YouCompleteMe
 
     " https://github.com/junegunn/fzf.vim
-    let s:use_fzf_vim = 0
+    let s:use_fzf_vim = 1
     if !s:is_windows && s:use_fzf_vim && isdirectory('/usr/local/opt/fzf')
       " For installing fzf via homebrew
       Plug '/usr/local/opt/fzf'
