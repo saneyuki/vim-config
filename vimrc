@@ -275,6 +275,7 @@ if s:use_vim_plug && v:version >= 800
 "    Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 "    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 "    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+    Plug 'bfrg/vim-cpp-modern', { 'for': ['c', 'cpp'] }
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries', }
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
@@ -355,6 +356,14 @@ if s:use_vim_plug && v:version >= 800
   let g:go_highlight_extra_types = 1
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_generate_tags = 1
+
+
+  "---------------
+  " vim-cpp-modern
+
+  let g:cpp_no_function_highlight = 1
+  "let g:cpp_simple_highlight = 1
+  let g:cpp_named_requirements_highlight = 1
 
 
   "---------------
