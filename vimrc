@@ -273,7 +273,7 @@ if s:use_vim_plug && v:version >= 800
 
 "    Plug 'othree/html5.vim', { 'for': ['html', 'xhtml'] }
 "    Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-"    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 "    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
     Plug 'bfrg/vim-cpp-modern', { 'for': ['c', 'cpp'] }
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries', }
