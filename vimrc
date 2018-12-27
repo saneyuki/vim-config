@@ -327,23 +327,6 @@ if s:use_vim_plug && v:version >= 800
 
 
   "----------------
-  " clang extra tools
-  let s:clang_tools_script_dir = expand($HOME . '/bin/clang+llvm/share/clang')
-
-  " clang-format
-  let s:clang_format_py = expand(s:clang_tools_script_dir . '/clang-format.py')
-  execute "map <C-K> :pyfile " . s:clang_format_py . "<cr>"
-  execute "imap <C-K> <c-o>:pyfile " . s:clang_format_py . "<cr>"
-
-  " clang-rename
-  "let s:clang_rename_py = expand(s:clang_tools_script_dir . '/clang-rename.py')
-  "execute \"noremap <leader>cr :pyfile \" . s:clang_rename_py . \"<cr><cr>"
-
-  " clang-include-fixer
-  "let s:clang_include_fixer_py = expand(s:clang_tools_script_dir . '/clang-include-fixer.py')
-  "execute \"noremap <leader>cf :pyfile \" . s:clang_include_fixer_py . \"<cr>\"
-
-  "----------------
   " vim-go
   "
 
