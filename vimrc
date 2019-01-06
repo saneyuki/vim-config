@@ -276,7 +276,7 @@ if s:use_vim_plug && v:version >= 800
     Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 "    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
     Plug 'bfrg/vim-cpp-modern', { 'for': ['c', 'cpp'] }
-    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries', }
+    Plug 'fatih/vim-go', { 'for': 'go' }
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 "    Plug 'kshenoy/vim-signature'
