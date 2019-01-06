@@ -50,6 +50,9 @@ set noundofile
 " バックアップを取らない
 set nobackup
 
+" Don't create ~/.viminfo
+"set viminfo=
+
 " シンタックスカラーリングオン
 syntax enable
 
