@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-let s:use_vim_plug = 1
+let s:use_vim_plug = 0
 let s:is_windows = has('win32') || has('win64')
 let s:is_macos = has('mac')
 let s:is_other_nix = has('unix')
