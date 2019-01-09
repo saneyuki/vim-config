@@ -38,18 +38,16 @@ func main() {
 			config{"vimfiles", "nvim", isXdgConfig},
 		}
 	} else {
-		isWin := runtime.GOOS == "windows"
-		var vimfilesDir string
-		if isWin {
-			vimfilesDir = "vimfiles"
-		} else {
-			vimfilesDir = ".vim"
-		}
-
 		list = []config{
-			config{"vimfiles", vimfilesDir, false},
+			config{"vimfiles", ".vim", false},
 			config{"vimrc", ".vimrc", false},
 			config{"gvimrc", ".gvimrc", false},
+		}
+
+		isWin := runtime.GOOS == "windows"
+		if isWin {
+			c := config{"vimfiles", "vimfiles", false}
+			list = append(list, c)
 		}
 	}
 

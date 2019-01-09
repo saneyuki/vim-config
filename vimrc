@@ -51,6 +51,9 @@ set noundofile
 " バックアップを取らない
 set nobackup
 
+" Don't create ~/.viminfo
+"set viminfo=
+
 " シンタックスカラーリングオン
 syntax enable
 
@@ -274,9 +277,10 @@ if s:use_vim_plug && v:version >= 800
 
 "    Plug 'othree/html5.vim', { 'for': ['html', 'xhtml'] }
 "    Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-"    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+    Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 "    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries', }
+    Plug 'bfrg/vim-cpp-modern', { 'for': ['c', 'cpp'] }
+    Plug 'fatih/vim-go', { 'for': 'go' }
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 "    Plug 'kshenoy/vim-signature'
@@ -327,23 +331,6 @@ if s:use_vim_plug && v:version >= 800
 
 
   "----------------
-  " clang extra tools
-  let s:clang_tools_script_dir = expand($HOME . '/bin/clang+llvm/share/clang')
-
-  " clang-format
-  let s:clang_format_py = expand(s:clang_tools_script_dir . '/clang-format.py')
-  execute "map <C-K> :pyfile " . s:clang_format_py . "<cr>"
-  execute "imap <C-K> <c-o>:pyfile " . s:clang_format_py . "<cr>"
-
-  " clang-rename
-  "let s:clang_rename_py = expand(s:clang_tools_script_dir . '/clang-rename.py')
-  "execute \"noremap <leader>cr :pyfile \" . s:clang_rename_py . \"<cr><cr>"
-
-  " clang-include-fixer
-  "let s:clang_include_fixer_py = expand(s:clang_tools_script_dir . '/clang-include-fixer.py')
-  "execute \"noremap <leader>cf :pyfile \" . s:clang_include_fixer_py . \"<cr>\"
-
-  "----------------
   " vim-go
   "
 
@@ -356,6 +343,14 @@ if s:use_vim_plug && v:version >= 800
   let g:go_highlight_extra_types = 1
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_generate_tags = 1
+
+
+  "---------------
+  " vim-cpp-modern
+
+  let g:cpp_no_function_highlight = 1
+  "let g:cpp_simple_highlight = 1
+  let g:cpp_named_requirements_highlight = 1
 
 
   "---------------
