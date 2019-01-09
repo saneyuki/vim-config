@@ -1,19 +1,22 @@
 scriptencoding utf-8
 
 let s:use_vim_plug = 1
+let s:is_windows = has('win32') || has('win64')
+let s:is_macos = has('mac')
+let s:is_other_nix = has('unix')
 
 "---------------------------------------------------------------------------
 " .gvimrc
 "---------------------------------------------------------------------------
 set background=dark
 
-if has("mac")
+if s:is_macos
   " opacity
 "  set transparency=30
   set guifont=Inconsolata:h14
   set columns=160
   set lines=100
-elseif has('win32') || has('win64')
+elseif s:is_windows
   if s:use_vim_plug
     colorscheme gruvbox
   else
@@ -32,7 +35,7 @@ elseif has('win32') || has('win64')
 
   set columns=120
   set lines=100
-elseif has('unix')
+elseif s:is_other_nix
 endif
 set nomousefocus    " マウス移動によるフォーカス切り替えを無効
 set guioptions-=T   " Hide toolbar
