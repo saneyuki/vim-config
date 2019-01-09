@@ -8,7 +8,7 @@ let s:use_vim_plug = 1
 set background=dark
 
 if has("mac")
-"  opacity
+  " opacity
 "  set transparency=30
   set guifont=Inconsolata:h14
   set columns=160
@@ -20,13 +20,16 @@ elseif has('win32') || has('win64')
     colorscheme desert256s
   endif
 
-  "半角文字のフォント設定
+  " 半角文字のフォント設定
   set guifont=Consolas:h10
-  "全角文字のフォント設定
-  "encoding=utf-8 かつ guifontset が空または Invalid の時のみ有効
-  set guifontwide=MeiryoKe_Console:h10,MS_Gothic:h10
+
+  " 全角文字のフォント設定
+  " encoding=utf-8 かつ guifontset が空または Invalid の時のみ有効
+  set guifontwide=MS_Gothic:h10
+
   " Avoid to slow move cursor
-  "set renderoptions=type:directx
+"  set renderoptions=type:directx
+
   set columns=120
   set lines=100
 elseif has('unix')
