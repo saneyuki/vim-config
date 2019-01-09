@@ -1,5 +1,7 @@
 scriptencoding utf-8
 
+let s:use_vim_plug = 1
+
 "---------------------------------------------------------------------------
 " .gvimrc
 "---------------------------------------------------------------------------
@@ -12,6 +14,12 @@ if has("mac")
   set columns=160
   set lines=100
 elseif has('win32') || has('win64')
+  if s:use_vim_plug
+    colorscheme gruvbox
+  else
+    colorscheme desert256s
+  endif
+
   "半角文字のフォント設定
   set guifont=Consolas:h10
   "全角文字のフォント設定
