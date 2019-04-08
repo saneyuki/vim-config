@@ -293,6 +293,12 @@ if s:use_vim_plug && v:version >= 800
     " https://github.com/mbbill/undotree
     " Plug 'mbbill/undotree'
 
+    " TODO:
+    " if (v:version >= 801) || s:is_neo_vim
+    " https://github.com/neoclide/coc.nvim
+    " Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install()} }
+    " endif
+
     " TODO: https://github.com/Valloric/YouCompleteMe
 
     " https://github.com/junegunn/fzf.vim
