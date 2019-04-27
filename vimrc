@@ -31,6 +31,14 @@ endif
 " Enable mouse support.
 set mouse=a
 
+" This option is set on neovim by default
+" set history=10000
+
+" Enabled by default on neovim https://neovim.io/doc/user/vim_diff.html
+set belloff=all
+set tabpagemax=50
+
+
 "---------------------------------------------------------------------------
 " File
 "
@@ -50,10 +58,13 @@ set noundofile
 " バックアップを取らない
 set nobackup
 
-" Don't create ~/.viminfo
-"set viminfo=
+  " Don't create ~/.viminfo
+" This is deprecated on neovim https://neovim.io/doc/user/deprecated.html
+if !s:is_neo_vim
+  "set viminfo=
+endif
 
-" シンタックスカラーリングオン
+" Enabled by default on neovim https://neovim.io/doc/user/vim_diff.html
 syntax enable
 
 " ファイルブラウザの初期ディレクトリ
@@ -61,6 +72,15 @@ set browsedir=buffer
 
 " モードラインを有効にする
 set modeline
+
+" Disabled by default on neovim https://neovim.io/doc/user/vim_diff.html
+if !s:is_neo_vim
+  set nofsync
+endif
+
+" Enabled by default on neovim https://neovim.io/doc/user/vim_diff.html
+set shortmess=filnxtToOF
+set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize
 
 
 "---------------------------------------------------------------------------
@@ -80,6 +100,7 @@ set shiftwidth=2
 set expandtab
 
 " 自動でインデント
+" Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
 set autoindent
 
 " '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
@@ -87,6 +108,9 @@ set shiftround
 
 " 新しい行のインデントを現在行と同じ量に
 set smartindent
+
+" Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
+set smarttab
 
 
 "---------------------------------------------------------------------------
@@ -96,8 +120,10 @@ set smartindent
 " バックスペースで特殊記号も削除可能に
 set backspace=indent,eol,start
 
-" 整形オプション，マルチバイト系を追加
-"set formatoptions=lmoq
+" Sort with neovim default
+set formatoptions=tcqj
+set nrformats=bin,hex
+
 
 " 行をまたいでカーソルを移動できるようにする
 set whichwrap=b,s,h,s,<,>,[,]
@@ -117,16 +143,25 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
+" Enabled by default on neovim https://neovim.io/doc/user/vim_diff.html
+set nolangremap
+set fillchars=
+
 
 "---------------------------------------------------------------------------
 " Complement Command
 "
 
 " コマンド補完を強化
+" Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
 set wildmenu
 
 " コマンド補完モードの設定
 set wildmode=longest:full
+
+" Enabled by default on neovim https://neovim.io/doc/user/vim_diff.html
+set tags=./tags;,tags
+set complete=.,w,b,u,t
 
 
 "---------------------------------------------------------------------------
@@ -150,9 +185,11 @@ set ignorecase
 set smartcase
 
 " インクリメンタルサーチ
+" Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
 set incsearch
 
 " 検索文字をハイライト
+" Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
 set hlsearch
 
 " 正規表現のメタ文字の扱いを常に'very magic'にする
@@ -175,6 +212,8 @@ set showmode
 " 行番号表示
 set number
 
+set ruler
+
 " 画面幅で折り返さない
 set nowrap
 
@@ -191,7 +230,7 @@ set breakindent
 set list
 
 " 不可視文字の表示方法
-set listchars=tab:>\ ,trail:-
+set listchars=tab:>\ ,trail:-,nbsp:+
 
 " タイトル書き換えない
 "set notitle
@@ -200,7 +239,13 @@ set listchars=tab:>\ ,trail:-
 set scrolloff=5
 
 " 印字不可能文字を16進数で表示
-"set display=uhex
+if s:is_neo_vim
+  " the default value of neovim
+  set display=lastline,msgsep,uhex
+else
+  " vim 8 does not support `msgsep`
+  set display=lastline,uhex
+endif
 
 " カーソル行をハイライト
 set cursorline
@@ -221,11 +266,15 @@ set virtualedit=block
 " Disable 'add eol if there is no eol'.
 set nofixeol
 
+" Enabled by default on neovim https://neovim.io/doc/user/vim_diff.html
+set sidescroll=1
+
 
 "---------------------------------------------------------------------------
 " StatusLine
 "
 " ステータスラインを常に表示
+" Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
 set laststatus=2
 
 set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l,%c%V%8P
@@ -327,7 +376,10 @@ if s:use_vim_plug && v:version >= 800
   "----------------
   " gruvbox
   "
-  set background=dark
+  " Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
+  if !s:is_neo_vim
+    set background=dark
+  endif
   colorscheme gruvbox
 
 
