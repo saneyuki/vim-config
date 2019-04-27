@@ -260,14 +260,23 @@ set ambiwidth=double
 if s:use_vim_plug && v:version >= 800
   let s:can_use_lua = has('lua')
   let s:has_python_3 = has('python3')
-  let s:rc_dir = s:is_windows ?
-    \ expand('~/vimfiles') :
-    \ expand('~/.vim')
+
+  if s:is_neo_vim
+    " https://neovim.io/doc/user/starting.html#xdg
+    let s:config_dir = stdpath('config')
+    let s:data_dir = stdpath('data')
+  else
+    let s:rc_dir = s:is_windows ?
+      \ expand('~/vimfiles') :
+      \ expand('~/.vim')
+  endif
 
   "----------------
   " [vim-plug](https://github.com/junegunn/vim-plug)
   "
-  let s:vim_plug_dir = expand(s:rc_dir . '/plugged')
+  let s:vim_plug_dir = s:is_neo_vim ?
+    \ expand(s:data_dir . '/plugged') :
+    \ expand(s:rc_dir . '/plugged')
   call plug#begin(s:vim_plug_dir)
     " Color Scheme
     Plug 'morhetz/gruvbox'
