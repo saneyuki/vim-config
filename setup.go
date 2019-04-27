@@ -29,18 +29,42 @@ func main() {
 	flag.Parse()
 
 	list := []config{
-		config{"vimfiles", ".vim", false},
-		config{"vimrc", ".vimrc", false},
-		config{"gvimrc", ".gvimrc", false},
+		config{
+			Source:      "vimfiles",
+			Link:        ".vim",
+			IsXdgConfig: false,
+		},
+		config{
+			Source:      "vimrc",
+			Link:        ".vimrc",
+			IsXdgConfig: false,
+		},
+		config{
+			Source:      "gvimrc",
+			Link:        ".gvimrc",
+			IsXdgConfig: false,
+		},
 	}
 
 	isWin := runtime.GOOS == "windows"
 	if isWin {
-		c := config{"vimfiles", "vimfiles", false}
+		c := config{
+			Source:      "vimfiles",
+			Link:        "vimfiles",
+			IsXdgConfig: false,
+		}
 		list = append(list, c)
 	} else {
-		list = append(list, config{"vimrc", "nvim/init.vim", true})
-		list = append(list, config{"vimfiles", "nvim", true})
+		list = append(list, config{
+			Source:      "vimrc",
+			Link:        "nvim/init.vim",
+			IsXdgConfig: true,
+		})
+		list = append(list, config{
+			Source:      "vimfiles",
+			Link:        "nvim",
+			IsXdgConfig: true,
+		})
 	}
 
 	run(list)
