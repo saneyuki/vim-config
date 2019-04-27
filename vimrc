@@ -243,7 +243,10 @@ endif
 
 " Vimが内部で使用するエンコーディング
 " fileencodings がすべて失敗した場合のデフォルト
-set encoding=utf-8
+if !s:is_neo_vim
+  " This option is always utf-8 on neovim
+  set encoding=utf-8
+endif
 
 " Vim がファイルを開く際に先頭から適用する
 set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp
