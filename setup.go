@@ -22,33 +22,25 @@ type config struct {
 
 var isClean bool
 var isDryRun bool
-var isNeoVim bool
 
 func main() {
 	flag.BoolVar(&isClean, "clean", false, "clean links which are set up by this script")
 	flag.BoolVar(&isDryRun, "dry-run", false, "dry-run")
-	flag.BoolVar(&isNeoVim, "neovim", false, "running to set up for neovim")
 	flag.Parse()
 
-	var list []config
-	if isNeoVim {
-		isXdgConfig := true
-		list = []config{
-			config{"vimrc", "nvim/init.vim", isXdgConfig},
-			config{"vimfiles", "nvim", isXdgConfig},
-		}
-	} else {
-		list = []config{
-			config{"vimfiles", ".vim", false},
-			config{"vimrc", ".vimrc", false},
-			config{"gvimrc", ".gvimrc", false},
-		}
+	list := []config{
+		config{"vimfiles", ".vim", false},
+		config{"vimrc", ".vimrc", false},
+		config{"gvimrc", ".gvimrc", false},
+	}
 
-		isWin := runtime.GOOS == "windows"
-		if isWin {
-			c := config{"vimfiles", "vimfiles", false}
-			list = append(list, c)
-		}
+	isWin := runtime.GOOS == "windows"
+	if isWin {
+		c := config{"vimfiles", "vimfiles", false}
+		list = append(list, c)
+	} else {
+		list = append(list, config{"vimrc", "nvim/init.vim", true})
+		list = append(list, config{"vimfiles", "nvim", true})
 	}
 
 	run(list)
