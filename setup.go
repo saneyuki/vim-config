@@ -31,9 +31,11 @@ func main() {
 	}
 
 	xdgConfigHome := getXdgConfigHome()
+	xdgDataHome := getXdgDataHome()
 
 	log.Printf("$HOME: %v", home)
 	log.Printf("$XDG_CONFIG_HOME: %v", xdgConfigHome)
+	log.Printf("$XDG_DATA_HOME: %v", xdgDataHome)
 
 	flag.BoolVar(&isClean, "clean", false, "clean links which are set up by this script")
 	flag.BoolVar(&isDryRun, "dry-run", false, "dry-run")
@@ -140,23 +142,43 @@ func getCwd() (string, error) {
 }
 
 const xdgConfigHomeEnvKey = "XDG_CONFIG_HOME"
+const xdgDataHomeEnvKey = "XDG_DATA_HOME"
 
 func getXdgConfigHome() string {
-	v := os.Getenv(xdgConfigHomeEnvKey)
+	home, err := getHome()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defaultVal, err := filepath.Abs(home + "/.config")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	p := getFilePathFromEnvVar(xdgConfigHomeEnvKey, defaultVal)
+	return p
+}
+
+func getXdgDataHome() string {
+	home, err := getHome()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defaultVal, err := filepath.Abs(home + "/.local/share")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	p := getFilePathFromEnvVar(xdgDataHomeEnvKey, defaultVal)
+	return p
+}
+
+func getFilePathFromEnvVar(key string, defaultVal string) string {
+	v := os.Getenv(key)
 	if v == "" {
-		log.Println("try to use `~/.config` as $XDG_CONFIG_HOME")
-
-		home, err := getHome()
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		l, err := filepath.Abs(home + "/.config")
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		v = l
+		log.Printf("try to use %v as $%v\n", defaultVal, key)
+		v = defaultVal
 	}
 
 	path, err := filepath.Abs(v)
