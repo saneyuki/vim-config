@@ -25,6 +25,7 @@ endif
 
 " カラースキームの設定
 if !s:use_vim_plug
+  set background=dark
   colorscheme gruvbox_fallback
 endif
 
@@ -377,9 +378,7 @@ if s:use_vim_plug && v:version >= 800
   " gruvbox
   "
   " Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
-  if !s:is_neo_vim
-    set background=dark
-  endif
+  set background=dark
   colorscheme gruvbox
 
 
