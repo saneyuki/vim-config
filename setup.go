@@ -15,55 +15,68 @@ type pathPair struct {
 }
 
 type config struct {
-	Source      string
-	Link        string
-	IsXdgConfig bool
+	Source  string
+	Link    string
+	BaseDir string
 }
 
 var isClean bool
 var isDryRun bool
 
 func main() {
+	home, err := getHome()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	xdgConfigHome := getXdgConfigHome()
+	xdgDataHome := getXdgDataHome()
+
+	log.Printf("$HOME: %v", home)
+	log.Printf("$XDG_CONFIG_HOME: %v", xdgConfigHome)
+	log.Printf("$XDG_DATA_HOME: %v", xdgDataHome)
+
 	flag.BoolVar(&isClean, "clean", false, "clean links which are set up by this script")
 	flag.BoolVar(&isDryRun, "dry-run", false, "dry-run")
 	flag.Parse()
 
 	list := []config{
 		config{
-			Source:      "vimfiles",
-			Link:        ".vim",
-			IsXdgConfig: false,
+			Source:  "vimfiles",
+			Link:    ".vim",
+			BaseDir: home,
 		},
 		config{
-			Source:      "vimrc",
-			Link:        ".vimrc",
-			IsXdgConfig: false,
+			Source:  "vimrc",
+			Link:    ".vimrc",
+			BaseDir: home,
 		},
 		config{
-			Source:      "gvimrc",
-			Link:        ".gvimrc",
-			IsXdgConfig: false,
+			Source:  "gvimrc",
+			Link:    ".gvimrc",
+			BaseDir: home,
 		},
 	}
 
 	isWin := runtime.GOOS == "windows"
 	if isWin {
 		c := config{
-			Source:      "vimfiles",
-			Link:        "vimfiles",
-			IsXdgConfig: false,
+			Source:  "vimfiles",
+			Link:    "vimfiles",
+			BaseDir: home,
 		}
 		list = append(list, c)
 	} else {
 		list = append(list, config{
-			Source:      "vimrc",
-			Link:        "nvim/init.vim",
-			IsXdgConfig: true,
+			Source:  "vimrc",
+			Link:    "nvim/init.vim",
+			BaseDir: xdgConfigHome,
 		})
 		list = append(list, config{
-			Source:      "vimfiles",
-			Link:        "nvim",
-			IsXdgConfig: true,
+			Source:  "vimfiles",
+			Link:    "nvim",
+			BaseDir: xdgConfigHome,
 		})
 	}
 
@@ -81,26 +94,10 @@ func run(manifest []config) {
 		return
 	}
 
-	home, err := getHome()
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-
-	xdgConfigHome := getXdgConfigHome()
-
-	log.Printf("$HOME: %v", home)
-	log.Printf("$XDG_CONFIG_HOME: %v", xdgConfigHome)
-
 	list := make([]pathPair, len(manifest))
 
 	for i, v := range manifest {
-		var path pathPair
-		if v.IsXdgConfig {
-			path = *resolvePath(cwd, xdgConfigHome, &v)
-		} else {
-			path = *resolvePath(cwd, home, &v)
-		}
+		path := *resolvePath(cwd, v.BaseDir, &v)
 		list[i] = path
 	}
 
@@ -145,23 +142,43 @@ func getCwd() (string, error) {
 }
 
 const xdgConfigHomeEnvKey = "XDG_CONFIG_HOME"
+const xdgDataHomeEnvKey = "XDG_DATA_HOME"
 
 func getXdgConfigHome() string {
-	v := os.Getenv(xdgConfigHomeEnvKey)
+	home, err := getHome()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defaultVal, err := filepath.Abs(home + "/.config")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	p := getFilePathFromEnvVar(xdgConfigHomeEnvKey, defaultVal)
+	return p
+}
+
+func getXdgDataHome() string {
+	home, err := getHome()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defaultVal, err := filepath.Abs(home + "/.local/share")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	p := getFilePathFromEnvVar(xdgDataHomeEnvKey, defaultVal)
+	return p
+}
+
+func getFilePathFromEnvVar(key string, defaultVal string) string {
+	v := os.Getenv(key)
 	if v == "" {
-		log.Println("try to use `~/.config` as $XDG_CONFIG_HOME")
-
-		home, err := getHome()
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		l, err := filepath.Abs(home + "/.config")
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		v = l
+		log.Printf("try to use %v as $%v\n", defaultVal, key)
+		v = defaultVal
 	}
 
 	path, err := filepath.Abs(v)
@@ -190,14 +207,14 @@ func getHome() (string, error) {
 	return home, err
 }
 
-func resolvePath(cwd string, home string, t *config) *pathPair {
+func resolvePath(cwd string, basedir string, t *config) *pathPair {
 	f, err := filepath.Abs(cwd + "/" + t.Source)
 	if err != nil {
 		log.Fatal(err)
 		return nil
 	}
 
-	l, err := filepath.Abs(home + "/" + t.Link)
+	l, err := filepath.Abs(basedir + "/" + t.Link)
 	if err != nil {
 		log.Fatal(err)
 		return nil
