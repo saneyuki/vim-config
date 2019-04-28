@@ -20,7 +20,7 @@ elseif s:is_windows
   if s:use_vim_plug
     colorscheme gruvbox
   else
-    colorscheme desert256s
+    colorscheme gruvbox_fallback
   endif
 
   " 半角文字のフォント設定
