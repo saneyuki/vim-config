@@ -26,7 +26,7 @@ endif
 
 " カラースキームの設定
 if !s:use_vim_plug
-  colorscheme desert256s
+  colorscheme gruvbox_fallback
 endif
 
 " Enable mouse support.
