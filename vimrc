@@ -193,6 +193,10 @@ set incsearch
 " Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
 set hlsearch
 
+if s:is_neo_vim
+  set inccommand=split
+endif
+
 " 正規表現のメタ文字の扱いを常に'very magic'にする
 " （メタ文字を常にエスケープ不要にする）
 "nnoremap / /\v
