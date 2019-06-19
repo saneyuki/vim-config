@@ -129,8 +129,9 @@ set nrformats=bin,hex
 " 行をまたいでカーソルを移動できるようにする
 set whichwrap=b,s,h,s,<,>,[,]
 
-" 無名レジスタに入るデータを, *レジスタにも入れる (OSのクリップボードも利用)
-set clipboard+=unnamed
+" 無名レジスタに入るデータを, クリップボードレジスタに入れる
+set clipboard& " see `help set-default`
+set clipboard^=unnamed,unnamedplus
 
 " 挿入モードでの単語補完時に大文字小文字を無視する
 "set infercase
