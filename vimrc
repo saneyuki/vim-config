@@ -130,8 +130,9 @@ set nrformats=bin,hex
 " 行をまたいでカーソルを移動できるようにする
 set whichwrap=b,s,h,s,<,>,[,]
 
-" 無名レジスタに入るデータを, *レジスタにも入れる (OSのクリップボードも利用)
-set clipboard+=unnamed
+" 無名レジスタに入るデータを, クリップボードレジスタに入れる
+set clipboard& " see `help set-default`
+set clipboard^=unnamed,unnamedplus
 
 " 挿入モードでの単語補完時に大文字小文字を無視する
 "set infercase
@@ -193,6 +194,10 @@ set incsearch
 " 検索文字をハイライト
 " Enabled by default with neovim https://neovim.io/doc/user/vim_diff.html
 set hlsearch
+
+if s:is_neo_vim
+  set inccommand=split
+endif
 
 " 正規表現のメタ文字の扱いを常に'very magic'にする
 " （メタ文字を常にエスケープ不要にする）
