@@ -390,11 +390,6 @@ if s:use_vim_plug && v:version >= 800
   "----------------
   " EditorConfig
 
-  if s:is_windows
-    let g:EditorConfig_exec_path = $HOME . '/local/EditorConfig/bin/editorconfig.exe'
-  endif
-
-
   "----------------
   " rust.vim
   "
