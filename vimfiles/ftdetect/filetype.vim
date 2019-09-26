@@ -13,5 +13,6 @@ augroup vimrc_filetype
     \ setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
   autocmd FileType gitcommit
     \ setlocal tabstop=4 softtabstop=0 shiftwidth=4
+    \ colorcolumn=80
 
 augroup END
