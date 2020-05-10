@@ -1,6 +1,4 @@
 augroup filetypedetect
-  autocmd!
-
   " plain text file
   autocmd FileType text setlocal wrap
 
