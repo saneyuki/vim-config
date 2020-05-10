@@ -1,4 +1,4 @@
-augroup vimrc_filetype
+augroup filetypedetect
   autocmd!
 
   " plain text file
