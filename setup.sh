@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DIR=`dirname ${0}`
+DIR=`pwd`
 
 # Remove old symbolic links
 rm ${HOME}/.gvimrc
