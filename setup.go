@@ -42,17 +42,17 @@ func main() {
 	flag.Parse()
 
 	list := []config{
-		config{
+		{
 			Source:  "vimfiles",
 			Link:    ".vim",
 			BaseDir: home,
 		},
-		config{
+		{
 			Source:  "vimrc",
 			Link:    ".vimrc",
 			BaseDir: home,
 		},
-		config{
+		{
 			Source:  "gvimrc",
 			Link:    ".gvimrc",
 			BaseDir: home,
