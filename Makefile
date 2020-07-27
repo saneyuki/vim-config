@@ -13,3 +13,9 @@ run: ## Create symlinks
 
 dryrun: ## Do 'make run' as dry run mode
 	go run setup.go -dry-run
+
+clean_without_go: ## Clean up symlinks without go
+	./install --only clean
+
+run_without_go: ## Create symlinks without go
+	./install
