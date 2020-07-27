@@ -13,7 +13,7 @@ set background=dark
 if s:is_macos
   " opacity
 "  set transparency=30
-  set guifont=Inconsolata:h14
+  set guifont=Cascadia_Mono:h13
   set columns=160
   set lines=100
 elseif s:is_windows

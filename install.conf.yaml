@@ -1,0 +1,24 @@
+# https://github.com/anishathalye/dotbot/
+- defaults:
+    link:
+        create: true
+        relink: true
+
+- clean:
+    ~/:
+    ~/.config:
+
+- link:
+    # vim
+    ~/.vim:
+        path: vimfiles
+    ~/.vimrc:
+        path: vimrc
+    ~/.gvimrc:
+        path: gvimrc
+
+    # neovim
+    ~/.config/nvim:
+        path: vimfiles
+    ~/.config/nvim/init.vim:
+        path: vimrc
