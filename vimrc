@@ -349,6 +349,7 @@ if s:use_vim_plug && v:version >= 800
     Plug 'bfrg/vim-cpp-modern', { 'for': ['c', 'cpp'] }
     Plug 'fatih/vim-go', { 'for': 'go' }
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+    Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 "    Plug 'kshenoy/vim-signature'
 
