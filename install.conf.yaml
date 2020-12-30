@@ -20,5 +20,9 @@
     # neovim
     ~/.config/nvim:
         path: vimfiles
-    ~/.config/nvim/init.vim:
+    ./vimfiles/init.vim:
         path: vimrc
+        # If we create the link to `~/.config/nvim/init.vim` directly,
+        # This will fail to create the link by the order of creations.
+        # This avoid that problem.
+        relative: true

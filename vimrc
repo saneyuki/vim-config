@@ -276,6 +276,12 @@ set nofixeol
 " Enabled by default on neovim https://neovim.io/doc/user/vim_diff.html
 set sidescroll=1
 
+" Highlight trailing space
+augroup HighlightTrailingSpaces
+  autocmd!
+  autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
+  autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+augroup END
 
 "---------------------------------------------------------------------------
 " StatusLine
